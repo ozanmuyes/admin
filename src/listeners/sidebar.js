@@ -9,6 +9,7 @@ import {
 } from 'event/types';
 
 let theBus = null;
+let param = null;
 
 function checkAndEmit() {
   // `this` is the `emittedEvents` array (as proxy's 'target')
@@ -19,7 +20,7 @@ function checkAndEmit() {
     this.indexOf(ROUTES_LOADED) > -1
   ) {
     // Conditions were met emit the event (use `theBus`)
-    theBus.$emit(READY_FOR_SIDEBAR_ROUTES);
+    theBus.$emit(READY_FOR_SIDEBAR_ROUTES, param);
   }
 }
 
@@ -44,6 +45,7 @@ const handlerTraps = {
       }
 
       default:
+        // Go on and `return target[thisArg]`
     }
 
     return target[thisArg];
@@ -54,24 +56,18 @@ const emittedEvents = new Proxy([], handlerTraps);
 function initialize(bus) {
   theBus = bus;
 
+  // Since `emittedEvents` array automatically runs condition(s)
+  // check, simply `push`ing the listened event is enough.
+  //
   bus.$once(USER_LOGGED_IN, () => {
-console.info('LSTNR#sidebar | USER_LOGGED_IN pushed.');
     emittedEvents.push(USER_LOGGED_IN);
-
-    // We can now get routes for sidebar ???
   });
 
-  bus.$once(ROUTES_LOADED, () => {
-    // We can now get routes for sidebar ???
-console.info('LSTNR#sidebar | ROUTES_LOADED pushed.');
+  bus.$once(ROUTES_LOADED, (loadedRoutes) => {
     emittedEvents.push(ROUTES_LOADED);
+
+    param = loadedRoutes;
   });
 }
-
-// `$once` or this method
-// function tearDown() {
-//   theBus.$off(USER_LOGGED_IN);
-//   theBus.$off(ROUTES_LOADED);
-// }
 
 export default initialize;

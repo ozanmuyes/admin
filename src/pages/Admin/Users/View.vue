@@ -1,9 +1,9 @@
 <template>
-  <span>login page</span>
+  <span>view user</span>
 </template>
 
 <script>
-  // TODO emit USER_LOGGED_IN event
+  // TODO 'watch' the route
 
   export default {
     //

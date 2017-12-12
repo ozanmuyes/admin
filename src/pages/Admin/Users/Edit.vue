@@ -1,10 +1,8 @@
 <template>
-  <span>login page</span>
+  <span>edit user</span>
 </template>
 
 <script>
-  // TODO emit USER_LOGGED_IN event
-
   export default {
     //
   };

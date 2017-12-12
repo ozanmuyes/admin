@@ -25,7 +25,8 @@ export default [
     path: '/logout',
     name: 'Logout',
     meta: {
-      isHidden: false,
+      title: 'logout',
+      index: 5169, // possibly the biggest number in sidebar index
     },
     beforeEnter: (to, from, next) => {
       if (store.getters.isLoggedIn) {

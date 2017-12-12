@@ -1,10 +1,8 @@
 <template>
-  <span>login page</span>
+  <span>users index</span>
 </template>
 
 <script>
-  // TODO emit USER_LOGGED_IN event
-
   export default {
     //
   };

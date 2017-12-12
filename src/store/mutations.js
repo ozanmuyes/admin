@@ -17,6 +17,6 @@ export default {
   // app
   //
   [types.SET_SIDEBAR_ROUTES](state, { routes }) {
-    state.app.sidebarRoutes = routes.slice();
+    state.app.sidebarRoutes = routes;
   },
 };

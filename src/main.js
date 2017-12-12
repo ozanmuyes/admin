@@ -19,8 +19,7 @@ Vue.config.productionTip = false;
 Vue.use(ElementUI);
 
 initialize().then(() => {
-  // All the event listeners are initialized
-console.log('Event listeners are initialized.');
+  // All the event listeners are initialized, now we can start the Vue
 
   // bus.onReady(() => { // Also we can load the app after the bus has settled
   // Inject global event bus

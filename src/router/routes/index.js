@@ -1,5 +1,14 @@
 /* eslint-disable import/no-mutable-exports */
 
+/**
+ * Upon first import/require gather all the routes and
+ * export them after combining individual files.
+ * Note that the exported value will be cached and it
+ * will be returned consecutive imports/requires.
+ * That means the initialization IIFE below will
+ * be invoked once (pre application reload).
+ */
+
 import merge from 'webpack-merge';
 
 // Get all the js files except 'index.js'
@@ -44,8 +53,6 @@ let currReq = null;
           }) // eslint-disable-line comma-dangle
         );
       }
-
-      // routes.push(currReq.default); // TODO Maybe we can namespace the individual routes
     } else {
       console.warn('We do NOT support named exports from individual files', key);
       // TODO Warn here about 'we do NOT support named exports from individual \

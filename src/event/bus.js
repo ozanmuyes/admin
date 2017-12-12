@@ -31,6 +31,7 @@ const facade = {
     return EventBus.$off(...params);
   },
   emit(...params) {
+// console.log(`BUS | Emitting ${params[0]}`);
     return EventBus.$emit(...params);
   },
   //
