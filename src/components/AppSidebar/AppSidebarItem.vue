@@ -2,7 +2,7 @@
   <div>
     <div v-if="isLoading" class="loading"></div>
     <div v-else class="menu-wrapper">
-      <template v-for="item in elRoutes">
+      <template v-for="item in routes">
         <!-- <router-link v-if="item.children && item.children.length === 1"
           :key="item.children[0].name"
           :to="item.path+'/'+item.children[0].path"
@@ -81,24 +81,6 @@
       isLoading() {
         return (this.routes.length === 0);
       },
-      elRoutes() {
-// debugger;
-        return this.routes;
-      },
-//         const isFilterObj = (typeof this.routes === 'object' && !Array.isArray(this.routes));
-// debugger;
-//         if (isFilterObj === true) {
-//           // return param.items;
-//           if (this.routes.filters) {
-//           // if (this.filters.includes('sidebar')) {
-//             return this.routes.items;
-//           }
-//         } /* else if (param.isArray) { */
-//           return routesForSidebar(this.routes);
-//         // } else {
-//           // `param.isFilterObj === false` ???
-//         // }
-//       },
     },
     methods: {
       generateTitle(title) {
