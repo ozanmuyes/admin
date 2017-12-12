@@ -1,31 +1,24 @@
 <template>
-  <div class="app-wrapper" :class="{hideSidebar}">
+  <div class="app-wrapper" :class="{hideSidebar: !sidebar.hasSidebarOpened}">
     <app-sidebar class="sidebar-container"></app-sidebar>
 
     <div class="main-container">
-      <app-navbar></app-navbar>
-      <tags-view></tags-view>
-      <app-main></app-main>
+      <span>admin dashboard</span>
+      <!-- TODO <router-view></router-view> -->
     </div>
   </div>
 </template>
 
 <script>
-  import AppNavbar from 'components/AppNavbar';
   import AppSidebar from 'components/AppSidebar';
-  import AppMain from 'components/AppMain';
-  import TagsView from 'components/TagsView';
 
   export default {
     components: {
-      AppNavbar,
       AppSidebar,
-      AppMain,
-      TagsView,
     },
     computed: {
-      hideSidebar() {
-        return (this.$store.state.app.hasSidebarOpened);
+      sidebar() {
+        return this.$store.state.app;
       },
     },
   };

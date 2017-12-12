@@ -7,10 +7,10 @@
 </template>
 
 <script>
-  import {
-    LOCAL_STATE_LOADED,
-    ROUTES_LOADED,
-  } from 'event/types';
+  // import {
+  //   LOCAL_STATE_LOADED,
+  //   // ROUTES_LOADED,
+  // } from 'event/types';
 
   export default {
     name: 'app',
@@ -19,19 +19,19 @@
     //     return this.$store.state.counter;
     //   },
     // },
-    mounted() {
-      this.$bus.$on(LOCAL_STATE_LOADED, () => {
-        console.log('LOCAL_STATE_LOADED from App.vue');
-      });
+    // mounted() {
+    //   this.$bus.$on(LOCAL_STATE_LOADED, () => {
+    //     console.log('LOCAL_STATE_LOADED from App.vue');
+    //   });
 
-      this.$bus.$on(ROUTES_LOADED, (routes) => {
-        console.log('routes', routes);
-      });
-    },
-    beforeDestroy() {
-      this.$bus.$off(LOCAL_STATE_LOADED);
-      this.$bus.$off(ROUTES_LOADED);
-    },
+    //   // this.$bus.$on(ROUTES_LOADED, (routes) => {
+    //   //   console.log('routes', routes);
+    //   // });
+    // },
+    // beforeDestroy() {
+    //   this.$bus.$off(LOCAL_STATE_LOADED);
+    //   // this.$bus.$off(ROUTES_LOADED);
+    // },
   };
 </script>
 

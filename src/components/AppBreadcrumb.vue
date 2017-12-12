@@ -45,8 +45,10 @@
         this.levelList = matched;
       },
       generateTitle(title) {
-// debugger;
-        return this.$t(`route.${title}`); // FIXME remove 'admin' from title - it comes from 'vue-router'
+        return title; // bypass l10n for now
+
+        // FIXME remove 'admin' from title - it comes from 'vue-router'
+        // return this.$t(`route.${title}`);
       },
     },
   };

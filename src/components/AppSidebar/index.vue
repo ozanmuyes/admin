@@ -20,16 +20,22 @@
 
   export default {
     components: {
-      AppSidebarItem,
       ScrollBar,
+      AppSidebarItem,
     },
     computed: {
       routes() {
-        return this.$store.state.app.sidebar.links.items;
+        return this.$store.state.app.sidebarRoutes;
       },
       isCollapsed() {
-        return !this.$store.state.app.sidebar.opened;
+        return !this.$store.state.app.hasSidebarOpened;
       },
     },
   };
 </script>
+
+<style>
+  a {
+    color: white;
+  }
+</style>

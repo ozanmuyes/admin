@@ -16,7 +16,6 @@ const router = new Router({
   routes,
 });
 
-console.log(router.options.routes);
 setTimeout(() => {
   bus.$emit(ROUTES_LOADED, routes); // TODO `routes` or `router.options.routes`???
 }, 10);

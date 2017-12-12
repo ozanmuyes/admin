@@ -11,14 +11,15 @@ export default [
     meta: {
       isHidden: true,
     },
-    beforeEnter: (to, from, next) => {
-      if (store.getters.isLoggedIn) {
-        // TODO Maybe show an alert stating that the user has already been logged in
-        next({ path: `/${store.state.user.role}` });
-      } else {
-        next();
-      }
-    },
+    // TODO Uncomment the lines below - commented for test purposes
+    // beforeEnter: (to, from, next) => {
+    //   if (store.getters.isLoggedIn) {
+    //     // TODO Maybe show an alert stating that the user has already been logged in
+    //     next({ path: `/${store.state.user.role}` });
+    //   } else {
+    //     next();
+    //   }
+    // },
   },
   {
     path: '/logout',

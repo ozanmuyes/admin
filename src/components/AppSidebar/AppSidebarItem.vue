@@ -96,8 +96,10 @@
     },
     methods: {
       generateTitle(title) {
+        return title; // bypass l10n for now
+
         // TODO If title has '*' for a path (e.g. 'foo.*.bar') search in children
-        return this.$t(`route.${title}`);
+        // return this.$t(`route.${title}`);
       },
     },
   };

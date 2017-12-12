@@ -1,4 +1,4 @@
-// import AdminDashboard from 'pages/Admin' // [TDADMPL]
+import AdminDashboard from 'pages/AdminDashboard'; // [TDADMPL]
 
 export default {
   // base: '/me',
@@ -13,7 +13,7 @@ export default {
     {
       path: '/',
       name: 'app.index',
-      // component AdminDashboard, // [TDADMPL]
+      component: AdminDashboard, // [TDADMPL]
       meta: {
         from: 'route',
         roles: ['mod'],
