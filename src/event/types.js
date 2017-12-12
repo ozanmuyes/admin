@@ -1,0 +1,3 @@
+export const LOCAL_STATE_LOADED = 'LOCAL_STATE_LOADED';
+export const ROUTES_LOADED = 'ROUTES_LOADED';
+//

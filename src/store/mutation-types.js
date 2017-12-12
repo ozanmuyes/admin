@@ -1,0 +1,5 @@
+export const UPDATE_ACCESS_TOKEN = 'UPDATE_ACCESS_TOKEN';
+export const LOGOUT = 'LOGOUT';
+
+export const SET_SIDEBAR_ROUTES = 'SET_SIDEBAR_ROUTES';
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
