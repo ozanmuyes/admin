@@ -4,8 +4,10 @@ import { NAVIGATED, UPDATE_BREADCRUMBS } from 'event/types';
 // import reduce from 'router/for/breadcrumbs';
 
 function initialize(bus) {
+// debugger;
   bus.$on(NAVIGATED, (to) => {
     const breadcrumbs = [];
+// debugger;
     const matchings = to.matched;
     let match = null;
 

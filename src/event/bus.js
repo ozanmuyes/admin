@@ -11,6 +11,7 @@
 
 import Vue from 'vue';
 
+/* eslint-disable import/no-mutable-exports */
 // Instance of the singleton bus
 const EventBus = new Vue();
 
@@ -22,18 +23,18 @@ const EventBus = new Vue();
 
 const facade = {
   on(...params) {
-console.log(`BUS | Registered for ${params[0]}`);
+// console.log(`BUS | Registered for ${params[0]}`);
     return EventBus.$on(...params);
   },
   once(...params) {
-console.log(`BUS | Registered for ${params[0]}`);
+// console.log(`BUS | Registered for ${params[0]}`);
     return EventBus.$once(...params);
   },
   off(...params) {
     return EventBus.$off(...params);
   },
   emit(...params) {
-console.log(`BUS | Emitting ${params[0]}`);
+// console.log(`BUS | Emitting ${params[0]}`);
     return EventBus.$emit(...params);
   },
   emitAsync(...params) {
@@ -44,7 +45,7 @@ console.log(`BUS | Emitting ${params[0]}`);
       // Remove the delay param from `params`
       params.splice(0, 1);
     }
-console.log(`BUS | Emitting ${params[0]} async`, params);
+// console.log(`BUS | Emitting ${params[0]} async`, params);
 
     setTimeout(() => {
       EventBus.$emit(...params);

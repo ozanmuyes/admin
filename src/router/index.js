@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
     // [ASMR2]
     if (to.meta.roles) {
       // the route requires some kind of authentication
-      return next({ name: 'login' });
+      return next('/404');
     }
   } else {
     // [ASMR1]
@@ -53,11 +53,11 @@ router.beforeEach((to, from, next) => {
 
       // if no roles was defined for the route, this means that
       // route is public.
-      return true;
+      return false; // this route does NOT require any role
     });
     if (requiresRole) {
       // This route requires at least one role, and the user hasn't logged in
-      return next('/404');
+      return next({ name: 'login' });
     }
 
     // No `meta.roles`, so it is public.

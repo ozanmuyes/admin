@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png" @click.prevent="decrement"> -->
-    <!-- {{ counter }} -->
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -14,6 +12,11 @@
 
   export default {
     name: 'app',
+    mounted() {
+// console.log(`App component mounted at ${(+new Date())}`);
+console.log(`App component mounted in ${(+new Date()) - global.lastFinishTime} msecs.`);
+      global.lastFinishTime = (+new Date());
+    },
     // computed: {
     //   counter() {
     //     return this.$store.state.counter;
