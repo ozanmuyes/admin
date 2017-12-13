@@ -2,6 +2,7 @@ export default {
   app: {
     hasSidebarOpened: true,
     sidebarRoutes: [],
+    visitedViews: [],
     //
   },
   user: {

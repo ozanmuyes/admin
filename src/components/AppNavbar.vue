@@ -5,12 +5,12 @@
       @toggled="toggleSidebar"
     ></app-hamburger>
 
-    <app-breadcrumb class="breadcrumb-container"></app-breadcrumb>
+    <app-breadcrumb class="breadcrumb-container" :dashboard-path="'/'" dashboard-path="/"></app-breadcrumb>
 
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <!-- <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'"> -->
+          <img class="user-avatar" :src="avatar" :title="username">
           <i class="el-icon-caret-bottom"></i>
         </div>
 
@@ -21,7 +21,8 @@
             </router-link>
           </el-dropdown-item>
 
-          <el-dropdown-item v-if="isLoggedIn" divided>
+          <!-- <el-dropdown-item v-if="isLoggedIn" divided> NNCHKHRMR -->
+          <el-dropdown-item divided>
             <router-link to="/logout">Logout</router-link>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -56,25 +57,26 @@
     },
     computed: {
       ...mapGetters([
-        'isLoggedIn',
+        // 'isLoggedIn', // No need to check here anymore [NNCHKHRMR]
 
-        'name',
+        'username',
         'avatar',
-        'language',
+        // 'language',
       ]),
     },
     methods: {
       toggleSidebar() {
         this.$store.commit(TOGGLE_SIDEBAR);
       },
-      handleSetLanguage(lang) {
-        this.$i18n.locale = lang;
-        this.$store.dispatch('setLanguage', lang);
-        this.$message({
-          message: 'switch language success',
-          type: 'success',
-        });
-      },
+      // TODO
+      // handleSetLanguage(lang) {
+      //   this.$i18n.locale = lang;
+      //   this.$store.dispatch('setLanguage', lang);
+      //   this.$message({
+      //     message: 'switch language success',
+      //     type: 'success',
+      //   });
+      // },
     },
   };
 </script>

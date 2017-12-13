@@ -1,13 +1,18 @@
 function reduce(routes) {
+  /* eslint-disable no-continue */
+
   const reduced = [];
 
   let route = null;
   let tmp = null;
   let tmp2 = null;
-  // for (let i = 0; i < sortedRoutes.length; i += 1) {
-  //   route = { ...sortedRoutes[i] };
+
   for (let i = 0; i < routes.length; i += 1, route = null) {
     route = { ...routes[i] };
+
+    if (!route.meta) {
+      continue;
+    }
 
     // Clean-up
     delete route.component;
@@ -19,20 +24,31 @@ function reduce(routes) {
       delete route.children;
 
       if (tmp.length > 0 && route.path) {
-        // route has sidebar compatible child/children
-        tmp2 = { ...route };
-        tmp2.meta = { ...route.meta };
+        // TODO Check if `route.path` includes ':' (and also if has 1 child)
 
-        tmp2.path = '';
-        tmp2.meta.title = (tmp2.meta.subtitle || 'WARN: Subtitle is necessary in those situations');
-        delete tmp2.meta.subtitle;
+        if (tmp.length === 1) {
+          route.meta.title = tmp[0].meta.title;
+          //
+        } else {
+          // route has sidebar compatible child/children
+          tmp2 = { ...route };
+          tmp2.meta = { ...route.meta };
 
-        route.children = [tmp2, ...tmp];
+          tmp2.path = '';
+          tmp2.meta.title = (tmp2.meta.subtitle || 'WARN: Subtitle is necessary in those situations');
+          delete tmp2.meta.subtitle;
 
-        // TODO tmp'e children'sız vs. kendini ekle
-        // çünkü children'ı olduğu zaman link değil aç/kapa butonu oluyor,
-        // kendisinin children'larına kendisini eklemezsek o path'e
-        // ulaşılamaz. hhat tercihen ilk çocuk olarak eklenecek.
+          // If the route is just a layout route, then
+          // the first child acts as a link to it
+          route.children = (tmp[0].path === '')
+            ? tmp
+            : [tmp2, ...tmp];
+
+          // TODO tmp'e children'sız vs. kendini ekle
+          // çünkü children'ı olduğu zaman link değil aç/kapa butonu oluyor,
+          // kendisinin children'larına kendisini eklemezsek o path'e
+          // ulaşılamaz. hatta tercihen ilk çocuk olarak eklenecek.
+        }
       }
     }
 
@@ -45,12 +61,7 @@ function reduce(routes) {
       delete route.redirect;
     }
 
-    /* eslint-disable no-continue */
     if (route.path.indexOf(':') > -1) {
-      continue;
-    }
-
-    if (!route.meta) {
       continue;
     }
 
@@ -60,7 +71,6 @@ function reduce(routes) {
 
     // TODO Add other conditions to premature break the loop
     //
-    /* eslint-enable no-continue */
 
     reduced.push(route);
   }
@@ -78,6 +88,8 @@ function reduce(routes) {
   });
 
   return reduced;
+
+  /* eslint-enable no-continue */
 }
 
 export default reduce;

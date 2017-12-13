@@ -19,4 +19,7 @@ export default {
   [types.SET_SIDEBAR_ROUTES](state, { routes }) {
     state.app.sidebarRoutes = routes;
   },
+  [types.TOGGLE_SIDEBAR](state) {
+    state.app.hasSidebarOpened = !state.app.hasSidebarOpened;
+  },
 };

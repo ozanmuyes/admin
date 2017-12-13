@@ -34,3 +34,7 @@ initialize().then(() => {
   });
   // });
 });
+
+// Project generic todos
+// TODO App config Store has the config property to house the application settings. \
+//      `store.state.app.config.showTaskbar.value` & `store.state.app.config.showTaskbar.type`

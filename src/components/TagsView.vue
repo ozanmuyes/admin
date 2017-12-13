@@ -21,7 +21,7 @@
     },
     methods: {
       closeViewTags(view) {
-        this.$store.dispatch('delVisitedViews', view).then((views) => {
+        this.$store.dispatch('delVisitedViews', view).then((views) => { // TODO Add action
           if (this.isActive(view)) {
             const latestView = views.slice(-1)[0];
 
@@ -36,15 +36,18 @@
       },
       addViewTags() {
         const route = this.generateRoute();
-debugger;
+// debugger;
         if (!route) {
           return;
         }
 
-        this.$store.dispatch('addVisitedViews', route);
+        this.$store.dispatch('addVisitedViews', route); // TODO Add action
       },
       isActive(route) {
-        return ((route.path === this.$route.path) || (route.name === this.$route.name));
+        return (
+          (route.path === this.$route.path) ||
+          (route.name === this.$route.name)
+        );
       },
     },
     watch: {

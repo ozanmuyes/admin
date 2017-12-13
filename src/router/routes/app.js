@@ -1,4 +1,6 @@
-import AdminDashboard from 'pages/AdminDashboard'; // [TDADMPL]
+import AdminLayout from 'layouts/Admin';
+
+import AdminDashboard from 'pages/AdminDashboard';
 import AdminUsersIndex from 'pages/Admin/Users/Index';
 import AdminUsersView from 'pages/Admin/Users/View';
 import AdminUsersEdit from 'pages/Admin/Users/Edit';
@@ -16,24 +18,42 @@ export default {
   routes: [
     {
       path: '/',
-      name: 'app.index',
-      component: AdminDashboard, // [TDADMPL]
+      component: AdminLayout,
       meta: {
-        title: 'dashboard',
+        name: 'dashboard', // NOTE This is crucial to breadcrumbs rendered correctly. Otherwise
+                           // there will be at least 2 dashboard links consecutive.
         from: 'route',
         roles: ['mod'],
         index: -1,
       },
+      children: [
+        {
+          path: '',
+          name: 'app.index',
+          component: AdminDashboard,
+          meta: {
+            title: 'dashboard',
+          },
+        },
+      ],
     },
     {
       path: '/users',
-      name: 'users.index',
-      component: AdminUsersIndex,
+      // name: 'users.index',
+      component: AdminLayout,
       meta: {
         title: 'users',
         subtitle: 'list',
       },
       children: [
+        {
+          path: '',
+          name: 'users.index',
+          component: AdminUsersIndex,
+          meta: {
+            title: 'wohoo!!1',
+          },
+        },
         {
           path: ':userId',
           name: 'users.view',
@@ -46,8 +66,8 @@ export default {
           path: 'edit',
           name: 'users.edit',
           component: AdminUsersEdit,
-          // alias: '/',
-          redirect: '//google.com',
+          // // alias: '/',
+          // redirect: '//google.com',
           meta: {
             title: 'edit',
             subtitle: 'edit user',

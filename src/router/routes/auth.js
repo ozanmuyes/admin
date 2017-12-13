@@ -6,7 +6,7 @@ import { LOGOUT } from 'store/mutation-types';
 export default [
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: LoginPage,
     meta: {
       isHidden: true,
@@ -23,7 +23,7 @@ export default [
   },
   {
     path: '/logout',
-    name: 'Logout',
+    name: 'logout',
     meta: {
       title: 'logout',
       index: 5169, // possibly the biggest number in sidebar index
