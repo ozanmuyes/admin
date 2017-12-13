@@ -28,7 +28,7 @@
         return this.$store.state.app.sidebarRoutes;
       },
       isCollapsed() {
-        return this.$store.state.app.hasSidebarOpened;
+        return !this.$store.state.app.hasSidebarOpened;
       },
     },
   };

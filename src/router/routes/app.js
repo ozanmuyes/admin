@@ -11,7 +11,6 @@ export default {
   // route exported from this file will have `meta` field.
   // Route items (entries of `routes` below) tend to override those.
   meta: {
-    from: 'file',
     roles: ['admin'],
   },
   // TODO `path`s should be acceptable by `<a>` as 'href'
@@ -20,9 +19,6 @@ export default {
       path: '/',
       component: AdminLayout,
       meta: {
-        name: 'dashboard', // NOTE This is crucial to breadcrumbs rendered correctly. Otherwise
-                           // there will be at least 2 dashboard links consecutive.
-        from: 'route',
         roles: ['mod'],
         index: -1,
       },
@@ -32,6 +28,7 @@ export default {
           name: 'app.index',
           component: AdminDashboard,
           meta: {
+            name: 'dashboard',
             title: 'dashboard',
           },
         },

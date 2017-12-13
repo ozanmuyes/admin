@@ -6,7 +6,7 @@ import Router from 'vue-router';
 import bus from 'event/bus';
 import {
   ROUTES_LOADED,
-  NAVIGATE,
+  NAVIGATED,
 } from 'event/types';
 
 import store from 'store';
@@ -31,26 +31,47 @@ router.beforeEach((to, from, next) => {
   // Call `next` with `return`
   if (store.getters.isLoggedIn) {
     // [ASMR2]
-    // if (to.meta.roles) {
-    //   // the route requires some kind of authentication
-    //   return next({ name: 'login' });
-    // }
+    if (to.meta.roles) {
+      // the route requires some kind of authentication
+      return next({ name: 'login' });
+    }
   } else {
     // [ASMR1]
     // eslint-disable-next-line no-lonely-if
-    if (to.meta.roles) {
-      // search for user's role
-      if (!to.meta.roles.includes(store.state.user.role)) {
-        // Unauthorized (403) but respond with Not Found (404)
-        return next('/404');
+    // if (to.meta.roles) {
+    //   // search for user's role
+    //   if (!to.meta.roles.includes(store.state.user.role)) {
+    //     // Unauthorized (403) but respond with Not Found (404)
+    //     return next('/404');
+    //   }
+    // }
+    // eslint-disable-next-line no-lonely-if
+    const requiresRole = to.matched.some((record) => {
+      if (record.meta && record.meta.roles) {
+        return record.meta.roles.includes(store.state.user.role);
       }
+
+      // if no roles was defined for the route, this means that
+      // route is public.
+      return true;
+    });
+    if (requiresRole) {
+      // This route requires at least one role, and the user hasn't logged in
+      return next('/404');
     }
 
     // No `meta.roles`, so it is public.
     // Do nothing, let the flow care the rest...
   }
 
-  bus.emit(NAVIGATE, to);
+  // Let the component that listen that event register
+  // the callback on their `mounted` life-cycle hook.
+
+  bus.emitAsync(10, NAVIGATED, to); // TODO Test me if async emitting is necessary here (since \
+  // ) there is another listener for it
+  // setTimeout(() => {
+  //   bus.emit(NAVIGATED, to);
+  // }, 10);
 
   return next();
 });

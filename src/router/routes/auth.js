@@ -9,7 +9,9 @@ export default [
     name: 'login',
     component: LoginPage,
     meta: {
-      isHidden: true,
+      // isHidden: true,
+      title: 'login',
+      index: -300,
     },
     // TODO Uncomment the lines below - commented for test purposes
     // beforeEnter: (to, from, next) => {

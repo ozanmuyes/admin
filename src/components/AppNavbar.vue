@@ -1,11 +1,11 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <app-hamburger class="hamburger-container"
-      :isActive="sidebar.opened"
+      :isActive="isMenuCollapsed"
       @toggled="toggleSidebar"
     ></app-hamburger>
 
-    <app-breadcrumb class="breadcrumb-container" :dashboard-path="'/'" dashboard-path="/"></app-breadcrumb>
+    <app-breadcrumbs class="breadcrumb-container" :dashboard-path="'/'" dashboard-path="/"></app-breadcrumbs>
 
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
@@ -32,30 +32,23 @@
 </template>
 
 <script>
-  import {
-    mapState,
-    mapGetters,
-  } from 'vuex';
+  import { mapGetters } from 'vuex';
   import { TOGGLE_SIDEBAR } from 'store/mutation-types';
 
-  import AppBreadcrumb from 'components/AppBreadcrumb';
+  import AppBreadcrumbs from 'components/AppBreadcrumbs';
   import AppHamburger from 'components/AppHamburger';
   import SvgIcon from 'components/SvgIcon';
 
   export default {
     components: {
-      AppBreadcrumb,
+      AppBreadcrumbs,
       AppHamburger,
       SvgIcon,
     },
-    data() {
-      return {
-        ...mapState([
-          'sidebar',
-        ]),
-      };
-    },
     computed: {
+      isMenuCollapsed() {
+        return !this.$store.state.app.hasSidebarOpened;
+      },
       ...mapGetters([
         // 'isLoggedIn', // No need to check here anymore [NNCHKHRMR]
 

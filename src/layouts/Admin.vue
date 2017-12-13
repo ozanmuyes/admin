@@ -14,7 +14,7 @@
   import AppNavbar from 'components/AppNavbar';
   import AppSidebar from 'components/AppSidebar';
   import AppMain from 'components/AppMain';
-  import TagsView from 'components/TagsView';
+  import TagsView from 'components/TagsView'; // TODO Rename it as AppTaskbar
 
   export default {
     components: {
@@ -25,7 +25,7 @@
     },
     computed: {
       hideSidebar() {
-        return (this.$store.state.app.hasSidebarOpened);
+        return !this.$store.state.app.hasSidebarOpened;
       },
     },
   };

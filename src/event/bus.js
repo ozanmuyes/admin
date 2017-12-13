@@ -22,9 +22,11 @@ const EventBus = new Vue();
 
 const facade = {
   on(...params) {
+console.log(`BUS | Registered for ${params[0]}`);
     return EventBus.$on(...params);
   },
   once(...params) {
+console.log(`BUS | Registered for ${params[0]}`);
     return EventBus.$once(...params);
   },
   off(...params) {
@@ -33,6 +35,20 @@ const facade = {
   emit(...params) {
 console.log(`BUS | Emitting ${params[0]}`);
     return EventBus.$emit(...params);
+  },
+  emitAsync(...params) {
+    let delay = 10;
+    if (typeof params[0] === 'number') {
+      delay = params[0];
+
+      // Remove the delay param from `params`
+      params.splice(0, 1);
+    }
+console.log(`BUS | Emitting ${params[0]} async`, params);
+
+    setTimeout(() => {
+      EventBus.$emit(...params);
+    }, delay);
   },
   //
 };

@@ -7,6 +7,7 @@ export default {
   },
   user: {
     access_token: null,
+    role: 'admin', // TODO Try with 'user' also
     //
   },
   //
