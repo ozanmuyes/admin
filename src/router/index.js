@@ -53,7 +53,7 @@ router.beforeEach((to, from, next) => {
 
       // if no roles was defined for the route, this means that
       // route is public.
-      return true;
+      return false; // this route does NOT require any role
     });
     if (requiresRole) {
       // This route requires at least one role, and the user hasn't logged in
@@ -80,4 +80,5 @@ setTimeout(() => {
   bus.$emit(ROUTES_LOADED, routes); // TODO `routes` or `router.options.routes`???
 }, 10);
 
+console.log('ROUTER IS HAPPY!!1');
 export default router;

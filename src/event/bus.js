@@ -11,6 +11,7 @@
 
 import Vue from 'vue';
 
+/* eslint-disable import/no-mutable-exports */
 // Instance of the singleton bus
 const EventBus = new Vue();
 
@@ -52,6 +53,7 @@ console.log(`BUS | Emitting ${params[0]} async`, params);
   },
   //
 };
+console.log('facade set');
 
 facade.$on = facade.on;
 facade.$once = facade.once;

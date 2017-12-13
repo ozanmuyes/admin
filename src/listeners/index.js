@@ -1,8 +1,6 @@
 import bus from 'event/bus';
 
-export const listeners = [];
-
-export async function initialize() {
+export default function initializeListeners() {
   return new Promise((resolve) => {
     // Get all the js files except 'index.js'
     const req = require.context('./', false, /^(?!.*index).*\.js$/);
@@ -18,9 +16,7 @@ export async function initialize() {
         currReq.initialize.call(currReq, bus);
       }
     });
-
-    // TODO Set `listeners`
-
+// debugger;
     resolve();
   });
 }

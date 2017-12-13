@@ -11,6 +11,7 @@ import actions from './actions';
 
 Vue.use(Vuex);
 
+console.log('STORE IS HAPPY!!1');
 export default new Vuex.Store({
   state: initialState,
   getters,

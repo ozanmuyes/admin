@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png" @click.prevent="decrement"> -->
-    <!-- {{ counter }} -->
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -14,6 +12,12 @@
 
   export default {
     name: 'app',
+    created() {
+console.log('CMPNT#App | created');
+    },
+    mounted() {
+console.log('CMPNT#App | mounted');
+    },
     // computed: {
     //   counter() {
     //     return this.$store.state.counter;
