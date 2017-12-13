@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable */
 
 // TODO Make this a class that extends from './_base.js'
@@ -19,7 +20,7 @@ export const priority = -5169;
 
 function initialize(...params) {
   // `this` is the Vue library - we can call `use` on it
-console.log(`BTSTR#event-bus | Initializing ${name} with`, params);
+// console.log(`BTSTR#event-bus | Initializing ${name} with`, params);
 
   // const bus = initializeBus();
 

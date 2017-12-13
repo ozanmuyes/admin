@@ -15,16 +15,18 @@
         </div>
 
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <router-link to="/">
+          <router-link to="/">
+            <el-dropdown-item>
               Profile
-            </router-link>
-          </el-dropdown-item>
+            </el-dropdown-item>
+          </router-link>
 
           <!-- <el-dropdown-item v-if="isLoggedIn" divided> NNCHKHRMR -->
-          <el-dropdown-item divided>
-            <router-link to="/logout">Logout</router-link>
-          </el-dropdown-item>
+          <router-link to="/logout">
+            <el-dropdown-item divided>
+              Logout
+            </el-dropdown-item>
+          </router-link>
         </el-dropdown-menu>
       </el-dropdown>
     </div>

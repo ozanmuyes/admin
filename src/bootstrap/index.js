@@ -5,10 +5,10 @@ const reqCtx = require.context('./', false, /^(?!.*index).*\.js$/);
 // TODO Sort reqs by their 'priority'ies
 const keys = reqCtx.keys();
 const reqs = [];
-console.log('BTSTR#index | keys = ', keys);
+// console.log('BTSTR#index | keys = ', keys);
 
 function start(Vue, ...params) {
-console.log('BTSTR#index.start | params = ', params);
+// console.log('BTSTR#index.start | params = ', params);
 
   // TODO Maybe `reject` where error occures.
   return new Promise((resolve) => {
@@ -116,11 +116,12 @@ console.log('BTSTR#index.start | params = ', params);
         return resolve({ Inst: Vue, rets });
       }
 
-console.log(`BTSTR#index | Calling ${fns[i].name}...`);
+// console.log(`BTSTR#index | Calling ${fns[i].name}...`);
       ret = currFn.apply(Vue, params);
-console.log(`BTSTR#index | Finished ${fns[i].name}`);
+// console.log(`BTSTR#index | Finished ${fns[i].name}`);
 // debugger;
       if (ret === null) {
+// console.log(`BTSTR#index | No return from ${fns[i].name}`);
         iterator(); // continue
       } else if (typeof ret === 'function') {
         const rslvd = ret();
@@ -129,19 +130,23 @@ console.log(`BTSTR#index | Finished ${fns[i].name}`);
             if (rslvdRet !== null && typeof rslvdRet !== 'undefined') {
               rets[fns[i].name] = rslvdRet;
             }
+// console.log(`BTSTR#index | Got return from ${fns[i].name} = `, rslvdRet);
             iterator(); // continue
           });
         } else {
           rets[fns[i].name] = rslvd;
+// console.log(`BTSTR#index | Got return from ${fns[i].name} = `, rslvd);
           iterator(); // continue
         }
       } else if (ret.then) {
         ret.then((rslvd) => {
           rets[fns[i].name] = rslvd;
+// console.log(`BTSTR#index | Got return from ${fns[i].name} = `, rslvd);
           iterator(); // continue
         });
       } else {
         rets[fns[i].name] = ret;
+// console.log(`BTSTR#index | Got return from ${fns[i].name} = `, ret);
         iterator(); // continue
       }
 

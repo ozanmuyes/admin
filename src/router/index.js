@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
     // [ASMR2]
     if (to.meta.roles) {
       // the route requires some kind of authentication
-      return next({ name: 'login' });
+      return next('/404');
     }
   } else {
     // [ASMR1]
@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
     });
     if (requiresRole) {
       // This route requires at least one role, and the user hasn't logged in
-      return next('/404');
+      return next({ name: 'login' });
     }
 
     // No `meta.roles`, so it is public.
@@ -80,5 +80,4 @@ setTimeout(() => {
   bus.$emit(ROUTES_LOADED, routes); // TODO `routes` or `router.options.routes`???
 }, 10);
 
-console.log('ROUTER IS HAPPY!!1');
 export default router;

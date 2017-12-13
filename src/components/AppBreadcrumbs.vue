@@ -21,15 +21,15 @@
       };
     },
     mounted() {
-console.log('CMPNT#AppBreadcrumb | UPDATE_BREADCRUMBS event is listening...');
+// console.log('CMPNT#AppBreadcrumb | UPDATE_BREADCRUMBS event is listening...');
       this.$bus.$on(UPDATE_BREADCRUMBS, (breadcrumbs) => {
-console.log('CMPNT#AppBreadcrumb | update breadcrumbs as = ', breadcrumbs);
+// console.log('CMPNT#AppBreadcrumb | update breadcrumbs as = ', breadcrumbs);
 
         this.items = breadcrumbs;
       });
     },
     beforeDestroy() {
-console.log('CMPNT#AppBreadcrumb | UPDATE_BREADCRUMBS event is not listened anymore.');
+// console.log('CMPNT#AppBreadcrumb | UPDATE_BREADCRUMBS event is not listened anymore.');
       this.$bus.$off(UPDATE_BREADCRUMBS);
     },
     methods: {
