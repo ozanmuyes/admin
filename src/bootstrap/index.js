@@ -112,14 +112,16 @@ function start(Vue, ...params) {
 
       if (currFn === null) {
 // debugger;
-        return resolve({ Inst: Vue, rets });
+        return resolve();
+        // return resolve({ Inst: Vue, rets }); // [RTRNRTSEVRYSTP]
       }
 
 // console.log(`BTSTR#index | Calling ${fns[i].name}...`);
-      ret = currFn.apply(Vue, params);
+      ret = currFn.call(null, { Vue, rets }, ...params); // [RTRNRTSEVRYSTP]
+      // ret = currFn.apply(null, { Vue, rets }, params); // [RTRNRTSEVRYSTP]
 // console.log(`BTSTR#index | Finished ${fns[i].name}`);
 // debugger;
-      if (ret === null) {
+      if (ret === null || typeof ret === 'undefined') {
 // console.log(`BTSTR#index | No return from ${fns[i].name}`);
         iterator(); // continue
       } else if (typeof ret === 'function') {

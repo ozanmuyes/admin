@@ -1,14 +1,14 @@
-/* eslint-disable no-unused-vars */
-
 import router from 'router';
 
 export const name = 'router';
 export const priority = 90;
 
-function initialize(...params) {
-  // `this` is the Vue library - we can call `use` on it
-// console.log(`BTSTR#router | Initializing ${name} with`, params);
+function initialize() {
+  // It has already been initialized above (where we `import`ed it).
 
+  // Return it to store the value in the listener registrator
+  // ('./index.js'). Once it is resolved value will be
+  // kept under the `name`.
   return router;
 }
 

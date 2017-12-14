@@ -1,15 +1,14 @@
-/* eslint-disable no-unused-vars */
-
 import listeners from '@/listeners';
 
 export const name = 'Listeners';
 export const priority = 5169;
 
-function initialize(...params) {
-  // `this` is the Vue library - we can call `use` on it
-// console.log(`BTSTR#listener | Initializing ${name} with`, params);
+function initialize() {
+  // It has already been initialized above (where we `import`ed it).
 
-  // Return the initialize function to execute and wait for the Promise to resolve (there)
+  // Return the listeners Promise to be handled by the
+  // listener registrator ('./index.js'). Once it is
+  // resolved value will be kept under the `name`.
   return listeners;
 }
 

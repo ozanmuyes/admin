@@ -9,7 +9,8 @@
       text-color="#fff"
       active-text-color="#409EFF"
     >
-      <app-sidebar-item :routes="routes"></app-sidebar-item>
+      <div v-if="loading">loading...</div>
+      <app-sidebar-item v-else :routes="routes"></app-sidebar-item>
     </el-menu>
   </scroll-bar>
 </template>
@@ -26,6 +27,9 @@
     computed: {
       routes() {
         return this.$store.state.app.sidebarRoutes;
+      },
+      loading() {
+        return (this.routes === null || this.routes.length < 1);
       },
       isCollapsed() {
         return !this.$store.state.app.hasSidebarOpened;

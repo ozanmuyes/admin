@@ -9,7 +9,7 @@ export default [
     name: 'login',
     component: LoginPage,
     meta: {
-      // isHidden: true,
+      isHidden: true,
       title: 'login',
       index: -300,
     },

@@ -10,7 +10,10 @@ function initialize(bus) {
     console.log(`Sidebar routes calculated ${(+new Date()) - global.lastFinishTime} msecs.`);
     global.lastFinishTime = (+new Date());
 
-    store.commit('SET_SIDEBAR_ROUTES', { routes: reduce(routes) });
+    setTimeout(() => {
+      store.commit('SET_SIDEBAR_ROUTES', { routes: reduce(routes) });
+    }, 2000);
+    // store.commit('SET_SIDEBAR_ROUTES', { routes: reduce(routes) });
   });
 }
 

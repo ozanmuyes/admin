@@ -21,6 +21,7 @@ export default {
       meta: {
         roles: ['mod'],
         index: -1,
+        icon: 'fa fa-fw fa-tachometer',
       },
       children: [
         {
