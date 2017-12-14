@@ -71,7 +71,7 @@ function start(Vue, ...params) {
 // console.log(`BTSTR#index.start | Initializing ${nm}...`);
 //       // Hopefully sync code below
 //       await fn.apply(Vue, params); // NOTE Maybe `call` with parameter(s) (e.g. Vue)
-// console.log(`BTSTR#index.start | ${nm} initialized.`);
+console.log(`BTSTR#index.start | ${nm} initialized.`);
       fns.push({ name: nm, fn });
     });
     // TODO Iterate the codes below;
