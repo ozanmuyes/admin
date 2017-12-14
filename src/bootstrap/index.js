@@ -8,10 +8,9 @@ const reqs = [];
 // console.log('BTSTR#index | keys = ', keys);
 
 function start(Vue, ...params) {
-// console.log('BTSTR#index.start | params = ', params);
+  // console.log('BTSTR#index.start | params = ', params);
 
-  // TODO Maybe `reject` where error occures.
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     let currReq = null;
     keys.forEach((key) => {
       if (!key.startsWith('./_')) { // FIXME The parameter of starts with is so fragile
@@ -132,7 +131,7 @@ function start(Vue, ...params) {
             }
 // console.log(`BTSTR#index | Got return from ${fns[i].name} = `, rslvdRet);
             iterator(); // continue
-          });
+          }).catch(error => reject(error));
         } else {
           rets[fns[i].name] = rslvd;
 // console.log(`BTSTR#index | Got return from ${fns[i].name} = `, rslvd);

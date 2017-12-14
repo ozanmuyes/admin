@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 
 import Vue from 'vue';
 
@@ -13,18 +13,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.config.productionTip = false;
 
-// // TODO See http://element.eleme.io/#/en-US/component/quickstart#on-demand
-// Vue.use(ElementUI);
-
 global.startTime = (+new Date());
 
-// After we are done with the 'Vue'. We can add more arguments but the
-// first argument MUST be imported Vue.
-bootstrap(Vue).then(({ Inst, rets }) => {
-// console.log(`Bootstrap completed succesfully at ${(+new Date())}`);
+// This is the first thin to do; calling bootstrap with Vue library
+// eslint-disable-next-line prefer-arrow-callback
+bootstrap(Vue).then(function bootstrapDone({ Inst, rets }) {
+  // console.log(`Bootstrap completed succesfully at ${(+new Date())}`);
   global.lastFinishTime = (+new Date());
-console.log(`Bootstrap completed succesfully in ${global.lastFinishTime - global.startTime} msecs.`);
-// debugger;
+  console.log(`Bootstrap completed succesfully in ${global.lastFinishTime - global.startTime} msecs.`);
+
   /* eslint-disable no-new */
   new Inst({ // FIXME This ('Vue') MUST be the bootstrapped Vue instance, NOT the imported one
     el: '#app',
@@ -32,8 +29,9 @@ console.log(`Bootstrap completed succesfully in ${global.lastFinishTime - global
     router: rets.router,
     render: h => h(App),
   });
-}).catch((error) => {
-  // TODO
+}).catch((error) => { // eslint-disable-line no-unused-vars
+  console.error('Error occured while bootstrap, ', error);
+  // console.error('Error occured while bootstrap, ', JSON.parse(JSON.stringify(error)));
 });
 // initialize().then(() => {
 //   // All the event listeners are initialized, now we can start the Vue
@@ -55,3 +53,6 @@ console.log(`Bootstrap completed succesfully in ${global.lastFinishTime - global
 // Project generic todos
 // TODO App config Store has the config property to house the application settings. \
 //      `store.state.app.config.showTaskbar.value` & `store.state.app.config.showTaskbar.type`
+
+// TODO Translation
+// TODO api and login procedures

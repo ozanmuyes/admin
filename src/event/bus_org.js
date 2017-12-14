@@ -1,3 +1,5 @@
+// DEPRECATED
+
 /**
  * The reason that the default exported constant is an Vue instance is that
  * we need something to convey the events on. The closest thing so far, if

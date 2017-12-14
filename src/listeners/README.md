@@ -2,7 +2,9 @@
 
 Listeners are (obviously) counter-parts of corresponding event (or events). Each and every file
 in this directory (`/src/listeners`) will be automatically initialized whenever it exports an
-initialization method. Preferably as default export.
+initialization method. Preferably as default export. Thus the listener **MUST export a function**
+either default or as a named export (export as 'initialize'). This function is _the_ initialization
+function which can be sync or async (can return Promise).
 The instance of the registrar event bus will be passed as the first argument of the initialization
 method to register (`bus.$on`) callbacks.
 
@@ -10,8 +12,11 @@ On initialization process the listener SHOULD register its appropriate callback 
 the events interested in. One thing to note here those callbacks SHOULD NOT be exported. Also know
 that the listeners can emit events too.
 
-Listeners aren't meant for replace with the store. They may and should run in co-operation. Mostly
-a listener dispatches an action on the store to affect the application state. For example ...
+Listeners aren't meant for replace the store. They MAY and SHOULD run in co-operation. Mostly
+a listener dispatches an action on the store to affect the application state. For example processed
+routes for the sidebar of the application is calculated when the listener's hook(s) (listened event(s))
+are invoked (emitted) then the listener changes a related value (or related values), and then Vue
+does the rest reactively on the component-side.
 Also they aren't for replace with the component-parent event mechanism. They are primarily meant
 for un-related, loosely coupled JavaScript modules (files). For example when user logs in and
 the routes were calculated one might reduce the application's routes in order to show them in a

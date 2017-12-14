@@ -1,4 +1,4 @@
-/* eslint-disable import/no-mutable-exports */
+/* eslint-disable no-console, import/no-mutable-exports */
 
 /**
  * Upon first import/require gather all the routes and

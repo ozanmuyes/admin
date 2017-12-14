@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  /* eslint-disable no-console */
+
   // import {
   //   LOCAL_STATE_LOADED,
   //   // ROUTES_LOADED,
@@ -13,8 +15,8 @@
   export default {
     name: 'app',
     mounted() {
-// console.log(`App component mounted at ${(+new Date())}`);
-console.log(`App component mounted in ${(+new Date()) - global.lastFinishTime} msecs.`);
+      // console.log(`App component mounted at ${(+new Date())}`);
+      console.log(`App component mounted in ${(+new Date()) - global.lastFinishTime} msecs.`);
       global.lastFinishTime = (+new Date());
     },
     // computed: {

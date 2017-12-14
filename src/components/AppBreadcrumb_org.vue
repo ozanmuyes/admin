@@ -1,3 +1,5 @@
+<!-- DEPRECATED -->
+
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
