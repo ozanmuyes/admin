@@ -8,31 +8,17 @@ import bootstrap from '@/bootstrap';
 // eslint-disable-next-line
 import 'element-ui/lib/theme-chalk/index.css';
 
-Vue.config.productionTip = false;
-
 global.startTime = (+new Date());
 
-// This is the first thin to do; calling bootstrap with Vue library
+// This is the first thin to do; calling bootstrap with Vue library. And in
+// the bootstrap phase we will mutate it (i.e. call its `use()` function,
+// add objects to its `prototype`)
 bootstrap(Vue)
-  // // eslint-disable-next-line prefer-arrow-callback
-  // .then(function bootstrapDone({ Inst, rets }) {
-  //   // console.log(`Bootstrap completed succesfully at ${(+new Date())}`);
-  //   global.lastFinishTime = (+new Date());
-  //   console.log(`Bootstrap completed succesfully in ${global.lastFinishTime - global.startTime} msecs.`);
-
-  //   // /* eslint-disable no-new */
-  //   // new Inst({ // FIXME This ('Vue') MUST be the bootstrapped Vue instance, NOT the imported one
-  //   //   el: '#app',
-  //   //   store: rets.store,
-  //   //   router: rets.router,
-  //   //   render: h => h(App),
-  //   // });
-  // })
   // eslint-disable-next-line prefer-arrow-callback
   .then(function bootstrapDone() {
-    // console.log(`Bootstrap completed succesfully at ${(+new Date())}`);
-    global.lastFinishTime = (+new Date());
-    console.log(`Bootstrap completed succesfully in ${global.lastFinishTime - global.startTime} msecs.`);
+    console.log(`Bootstrap completed succesfully at ${(+new Date())}`);
+    // global.lastFinishTime = (+new Date());
+    // console.log(`Bootstrap completed succesfully in ${global.lastFinishTime - global.startTime} msecs.`);
   })
   .catch((error) => { // eslint-disable-line no-unused-vars
     console.error('Error occured while bootstrap, ', error);

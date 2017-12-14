@@ -3,7 +3,6 @@
 </template>
 
 <script>
-  // TODO emit USER_LOGGED_IN event
   import { USER_LOGGED_IN } from 'event/types';
 
   export default {
@@ -14,6 +13,7 @@
         access_token: 'bari',
         role: 'admin',
       };
+console.log('Emitting USER_LOGGED_IN...');
       this.$bus.$emit(USER_LOGGED_IN);
       this.$router.replace({ name: 'app.index' });
     },

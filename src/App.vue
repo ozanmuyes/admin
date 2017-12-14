@@ -15,9 +15,9 @@
   export default {
     name: 'app',
     mounted() {
-      // console.log(`App component mounted at ${(+new Date())}`);
-      console.log(`App component mounted in ${(+new Date()) - global.lastFinishTime} msecs.`);
-      global.lastFinishTime = (+new Date());
+      console.log(`App component mounted at ${(+new Date())}`);
+      // console.log(`App component mounted in ${(+new Date()) - global.lastFinishTime} msecs.`);
+      // global.lastFinishTime = (+new Date());
     },
     // computed: {
     //   counter() {

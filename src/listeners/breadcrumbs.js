@@ -11,7 +11,7 @@ function initialize(bus) {
     const matchings = to.matched;
     let match = null;
 
-    for (let i = 0; i < matchings.length; i += 1, match = null) {
+    for (let i = 0; i < matchings.length; i += 1) {
       // Items of the `matchings` are route records with 'component',
       // 'beforeEnter' etc. Leave them be or reduce them. Think
       // performance-wise, not code elegance.

@@ -46,15 +46,7 @@ router.beforeEach((to, from, next) => {
     //   }
     // }
     // eslint-disable-next-line no-lonely-if
-    const requiresRole = to.matched.some((record) => {
-      if (record.meta && record.meta.roles) {
-        return record.meta.roles.includes(store.state.user.role);
-      }
-
-      // if no roles was defined for the route, this means that
-      // route is public.
-      return false; // this route does NOT require any role
-    });
+    const requiresRole = to.matched.some(record => (record.meta && record.meta.roles));
     if (requiresRole) {
       // This route requires at least one role, and the user hasn't logged in
       return next({ name: 'login' });

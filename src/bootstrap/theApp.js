@@ -1,9 +1,14 @@
+/* eslint-disable no-param-reassign */
+
 import { setter } from '@/inst';
 
 export const name = 'Vue';
-export const priority = 800;
+export const priority = 1000;
 
 function initialize({ Vue, rets }) {
+  Vue.config.productionTip = false;
+  // TODO Add necessary things to the Vue here
+
   // Here we have to set the global Vue instance, using its 'setter'.
   // From now on every `import` of the '/src/inst.js' SHOULD return
   // 'the instance' (`theInst` in the file).

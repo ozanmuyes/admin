@@ -1,7 +1,7 @@
 import listeners from '@/listeners';
 
 export const name = 'Listeners';
-export const priority = 5169;
+export const priority = 800;
 
 function initialize() {
   // It has already been initialized above (where we `import`ed it).

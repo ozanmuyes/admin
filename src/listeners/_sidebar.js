@@ -1,5 +1,3 @@
-// DEPRECATED
-
 // This listener is an example of 'redurer listener'.
 
 import {
@@ -11,21 +9,19 @@ import {
 } from 'event/types';
 
 let theBus = null;
-let theParam = null;
+let param = null;
 
-// This function is a instance function which returns a
-// boolean to indicate if the check was pass or not.
-function check() {
+function checkAndEmit() {
   // `this` is the `emittedEvents` array (as proxy's 'target')
 
-  return (
+  // Check for the particular conditions for this very reducer (listener)
+  if (
     this.indexOf(USER_LOGGED_IN) > -1 &&
     this.indexOf(ROUTES_LOADED) > -1
-  );
-}
-
-function emit(bus, param) {
-  theBus.$emit(READY_FOR_SIDEBAR_ROUTES, param);
+  ) {
+    // Conditions were met emit the event (use `theBus`)
+    theBus.$emit(READY_FOR_SIDEBAR_ROUTES, param);
+  }
 }
 
 // Proxy this, when added automatically check for condition to emit its event
@@ -42,10 +38,7 @@ const handlerTraps = {
       case 'push': {
         // call the check fn after push
         setTimeout(() => {
-          const res = check.call(target);
-          if (res) {
-            emit.call(null, theBus, theParam);
-          }
+          checkAndEmit.call(target);
         }, 0);
 
         break;
@@ -75,7 +68,7 @@ console.log('USER_LOGGED_IN was emitted.');
 console.log('ROUTES_LOADED was emitted.');
     emittedEvents.push(ROUTES_LOADED);
 
-    theParam = loadedRoutes;
+    param = loadedRoutes;
   });
 }
 
