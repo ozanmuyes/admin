@@ -1,5 +1,6 @@
 export default {
   app: {
+    breakpoint: '',
     hasSidebarOpened: true,
     sidebarRoutes: [],
     visitedViews: [],

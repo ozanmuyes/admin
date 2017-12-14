@@ -6,6 +6,38 @@
     <title>admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      #app:before {
+        display: none;
+      }
+      @media only screen and (min-width: 320px) {
+        #app:before {
+          content: "mobile"; /* This will be used as `sizeTag' and  */
+        }
+
+        body {
+          background-color: lime;
+        }
+      }
+      @media only screen and (min-width: 768px) {
+        #app:before {
+          content: "tablet"; /* This will be used as `sizeTag' and  */
+        }
+
+        body {
+          background-color: maroon;
+        }
+      }
+      @media only screen and (min-width: 960px) {
+        #app:before {
+          content: "desktop"; /* This will be used as `sizeTag' and  */
+        }
+
+        body {
+          background-color: gray;
+        }
+      }
+    </style>
   </head>
 
   <body>
