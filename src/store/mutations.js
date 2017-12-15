@@ -22,4 +22,7 @@ export default {
   [types.TOGGLE_SIDEBAR](state) {
     state.app.hasSidebarOpened = !state.app.hasSidebarOpened;
   },
+  [types.CHANGE_BREAKPOINT](state, payload) {
+    state.app.breakpoint = payload.breakpoint;
+  },
 };
