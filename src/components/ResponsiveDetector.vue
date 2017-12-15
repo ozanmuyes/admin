@@ -21,10 +21,6 @@ Add media queries to 'index.html' which changes '#app:before.content', i.e.
 
   export default {
     mounted() {
-      console.log(`App component mounted at ${(+new Date())}`);
-      // console.log(`App component mounted in ${(+new Date()) - global.lastFinishTime} msecs.`);
-      // global.lastFinishTime = (+new Date());
-
       this.actOnResize();
 
       window.addEventListener('resize', this.handleResize);

@@ -8,7 +8,11 @@ import bootstrap from '@/bootstrap';
 // eslint-disable-next-line
 import 'element-ui/lib/theme-chalk/index.css';
 
-global.startTime = (+new Date());
+// FIXME Why this is here? Why not in the bootstrap file?
+Vue.config.productionTip = false;
+
+console.log(`Loading started at ${(+new Date())}`);
+// global.startTime = (+new Date());
 
 // This is the first thin to do; calling bootstrap with Vue library. And in
 // the bootstrap phase we will mutate it (i.e. call its `use()` function,

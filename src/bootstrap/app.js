@@ -6,7 +6,6 @@ export const name = 'Vue';
 export const priority = 1000;
 
 function initialize({ Vue, rets }) {
-  Vue.config.productionTip = false;
   // TODO Add necessary things to the Vue here
 
   // Here we have to set the global Vue instance, using its 'setter'.

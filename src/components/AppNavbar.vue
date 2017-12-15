@@ -1,5 +1,5 @@
 <template>
-  <el-menu class="navbar" :mode="menuMode">
+  <el-menu class="navbar" mode="vertical">
     <app-hamburger class="hamburger-container"
       :isActive="isMenuCollapsed"
       @toggled="toggleSidebar"
@@ -50,13 +50,6 @@
     computed: {
       isMenuCollapsed() {
         return !this.$store.state.app.hasSidebarOpened;
-      },
-      menuMode() {
-        if (this.$store.state.app.breakpoint === 'mobile') {
-          return 'horizontal';
-        }
-
-        return 'vertical';
       },
       ...mapGetters([
         // 'isLoggedIn', // No need to check here anymore [NNCHKHRMR]

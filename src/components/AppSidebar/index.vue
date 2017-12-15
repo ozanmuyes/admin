@@ -1,7 +1,7 @@
 <template>
   <scroll-bar>
     <el-menu
-      mode="vertical"
+      :mode="menuMode"
       unique-opened
       :default-active="$route.path"
       :collapse="isCollapsed"
@@ -33,6 +33,13 @@
       },
       isCollapsed() {
         return !this.$store.state.app.hasSidebarOpened;
+      },
+      menuMode() {
+        if (this.$store.state.app.breakpoint === 'mobile') {
+          return 'horizontal';
+        }
+
+        return 'vertical';
       },
     },
   };
