@@ -15,6 +15,7 @@ export function setter(Vue, rets) {
     el: '#app',
     store: rets.store,
     router: rets.router,
+    i18n: rets.i18n,
     render: h => h(App),
   });
 }
