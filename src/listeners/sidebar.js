@@ -25,7 +25,7 @@ function check() {
 }
 
 function emit(bus, param) {
-  theBus.$emit(READY_FOR_SIDEBAR_ROUTES, param);
+  theBus.emitAsync(READY_FOR_SIDEBAR_ROUTES, param);
 }
 
 // Proxy this, when added automatically check for condition to emit its event

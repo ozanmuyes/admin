@@ -47,7 +47,7 @@ Add media queries to 'index.html' which changes '#app:before.content', i.e.
         const bodyBeforeContent = window.getComputedStyle(document.querySelector('#app'), ':before')
           .getPropertyValue('content').replace(/"/g, '');
 
-        if (this.$store.state.app.sizeTag !== bodyBeforeContent) {
+        if (this.$store.state.app.breakpoint !== bodyBeforeContent) {
           this.$emit('change', bodyBeforeContent);
         }
       },
