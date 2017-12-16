@@ -55,6 +55,8 @@
 </template>
 
 <script>
+  import { LOGIN_ERROR } from 'event/types';
+
   export default {
     props: {
       langPrefix: {
@@ -83,6 +85,12 @@
         },
       };
     },
+    mounted() {
+      this.$bus.on(LOGIN_ERROR, this.onError);
+    },
+    beforeDestroy() {
+      this.$bus.off(LOGIN_ERROR);
+    },
     methods: {
       translate(text) {
         return `${this.langPrefix}${text}`;
@@ -99,6 +107,13 @@
       },
       resetForm() {
         this.$refs.form.resetFields();
+      },
+      onError({ message, title }) {
+        this.$alert(message, title, {
+          type: 'error',
+          // See http://element.eleme.io/#/en-US/component/message-box#options
+          //
+        });
       },
     },
   };

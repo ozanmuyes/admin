@@ -14,14 +14,14 @@ export default [
       index: -300,
     },
     // TODO Uncomment the lines below - commented for test purposes
-    // beforeEnter: (to, from, next) => {
-    //   if (store.getters.isLoggedIn) {
-    //     // TODO Maybe show an alert stating that the user has already been logged in
-    //     next({ path: `/${store.state.user.role}` });
-    //   } else {
-    //     next();
-    //   }
-    // },
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isLoggedIn) {
+        // TODO Maybe show an alert stating that the user has already been logged in
+        next({ name: 'app.index' });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: '/logout',
@@ -34,7 +34,8 @@ export default [
       if (store.getters.isLoggedIn) {
         store.commit(LOGOUT);
 
-        window.location = 'http://localhost:8765/'; // TODO navigate to `store.state.links.homepage`
+        window.location = 'http://localhost:8080'; // TODO navigate to `store.state.links.homepage`
+        // window.location = 'http://localhost:8765/'; // TODO navigate to `store.state.links.homepage`
         next(false);
       } else {
         next({ name: 'Login' });

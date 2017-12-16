@@ -31,6 +31,7 @@ const facade = {
     return EventBus.$once(...params);
   },
   off(...params) {
+// console.log(`BUS | Unregister from ${params[0]}`);
     return EventBus.$off(...params);
   },
   emit(...params) {

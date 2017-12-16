@@ -6,6 +6,10 @@ import emptyState from './state';
 export default {
   // auth
   //
+  [types.SET_TOKENS](state, payload) {
+    state.user.access_token = payload.access_token;
+    state.user.refresh_token = payload.refresh_token;
+  },
   [types.SET_USER](state, payload) {
     // TODO Maybe do NOT use `Object.assign`
     state.user = Object.assign(state.user, payload);

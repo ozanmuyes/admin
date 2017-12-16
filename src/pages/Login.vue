@@ -14,6 +14,8 @@
 <script>
   import LoginForm from 'components/LoginForm';
 
+  import { TRY_USER_LOGIN } from 'event/types';
+
   export default {
     components: { LoginForm },
     metaInfo() {
@@ -22,7 +24,9 @@
       };
     },
     methods: {
-      async doLogin(email, password) {
+      doLogin(email, password) {
+        this.$bus.$emit(TRY_USER_LOGIN, { email, password });
+
         // TODO Call the `login` method of the API (from auth particularly)
 //        try {
 //          await this.$store.dispatch({
