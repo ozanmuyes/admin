@@ -3,7 +3,9 @@ export default {
     breakpoint: '',
     hasSidebarOpened: true,
     sidebarRoutes: [],
-    visitedViews: [],
+    visitedViews: [], // NOTE This is not necessary as the visited ones store in the Taskbar too \
+    // Unless we want to store the taskbar's state in the user's browser
+    cachedViews: [],
     //
   },
   user: {

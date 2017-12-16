@@ -8,7 +8,10 @@
     <app-breadcrumbs class="breadcrumb-container" :dashboard-path="'/'" dashboard-path="/"></app-breadcrumbs>
 
     <div class="right-menu">
-      <el-dropdown class="avatar-container right-menu-item" trigger="click">
+      <el-dropdown v-if="isScreenBigEnough"
+        class="avatar-container right-menu-item"
+        trigger="click"
+      >
         <div class="avatar-wrapper">
           <img class="user-avatar" :src="avatar" :title="username">
           <i class="el-icon-caret-bottom"></i>
@@ -50,6 +53,10 @@
     computed: {
       isMenuCollapsed() {
         return !this.$store.state.app.hasSidebarOpened;
+      },
+      isScreenBigEnough() {
+        // FIXME If below than 'mobile' screen sizes added this won't work correct
+        return (this.$store.state.app.breakpoint !== 'mobile');
       },
       ...mapGetters([
         // 'isLoggedIn', // No need to check here anymore [NNCHKHRMR]

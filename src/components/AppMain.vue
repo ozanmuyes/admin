@@ -1,11 +1,11 @@
 <template>
-  <section class="app-main" style="min-height: 100%">
+  <main class="app-main">
     <transition name="fade" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view></router-view>
       </keep-alive>
     </transition>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -23,3 +23,9 @@
     },
   };
 </script>
+
+<style>
+  #app-main {
+    min-height: 100%;
+  }
+</style>

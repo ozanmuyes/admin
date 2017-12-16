@@ -49,7 +49,7 @@ export default {
           name: 'users.index',
           component: AdminUsersIndex,
           meta: {
-            title: 'wohoo!!1',
+            title: 'list',
           },
         },
         {

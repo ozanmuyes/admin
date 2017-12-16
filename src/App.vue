@@ -1,7 +1,10 @@
 <template>
   <div id="app" :class="sizeClassForBreakpoint" ref="divApp">
     <responsive-detector @change="onResponsiveChange"></responsive-detector>
-    <router-view></router-view>
+    <router-view v-if="isScreenBigEnough"></router-view>
+    <div v-else>
+      Screen is too small, can not show the administration panel application.
+    </div>
   </div>
 </template>
 
@@ -17,6 +20,7 @@
     },
     data() {
       return {
+        isScreenBigEnough: false,
         classForBreakpoint: '',
         //
       };
@@ -27,12 +31,14 @@
       },
     },
     mounted() {
-      console.log(`App component mounted at ${(+new Date())}`);
+      console.log(`CMPNT#App | Mounted at ${(+new Date())}`);
       // console.log(`App component mounted in ${(+new Date()) - global.lastFinishTime} msecs.`);
       // global.lastFinishTime = (+new Date());
     },
     methods: {
       onResponsiveChange(classForBreakpoint) {
+        this.isScreenBigEnough = (classForBreakpoint !== 'unsupported');
+
         // TODO Find out if class mutation is cumbersome - if so comment out the line below
         this.classForBreakpoint = classForBreakpoint;
 

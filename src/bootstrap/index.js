@@ -68,10 +68,10 @@ function start(Vue, ...params) {
 
       // TODO Ensure if the `fn` is a function
 
-// console.log(`BTSTR#index.start | Initializing ${nm}...`);
+// console.log(`BTSTR#index.start | Started initializing ${nm} at ${+(new Date())}`);
 //       // Hopefully sync code below
 //       await fn.apply(Vue, params); // NOTE Maybe `call` with parameter(s) (e.g. Vue)
-console.log(`BTSTR#index.start | ${nm} initialized.`);
+// console.log(`BTSTR#index.start | ${nm} initialized at ${+(new Date())}`);
       fns.push({ name: nm, fn });
     });
     // TODO Iterate the codes below;
@@ -111,18 +111,20 @@ console.log(`BTSTR#index.start | ${nm} initialized.`);
       currFn = fns[i].fn;
 
       if (currFn === null) {
-// debugger;
+console.log(`BTSTR#index.start | Finished bootstrapping at ${+(new Date())}`);
         return resolve();
         // return resolve({ Inst: Vue, rets }); // [RTRNRTSEVRYSTP]
       }
 
 // console.log(`BTSTR#index | Calling ${fns[i].name}...`);
+console.log(`BTSTR#index.start | Started initializing ${fns[i].name} at ${+(new Date())}`);
       ret = currFn.call(null, { Vue, rets }, ...params); // [RTRNRTSEVRYSTP]
       // ret = currFn.apply(null, { Vue, rets }, params); // [RTRNRTSEVRYSTP]
 // console.log(`BTSTR#index | Finished ${fns[i].name}`);
 // debugger;
       if (ret === null || typeof ret === 'undefined') {
 // console.log(`BTSTR#index | No return from ${fns[i].name}`);
+console.log(`BTSTR#index.start | ${fns[i].name} initialized at ${+(new Date())}`);
         iterator(); // continue
       } else if (typeof ret === 'function') {
         const rslvd = ret();
@@ -132,27 +134,32 @@ console.log(`BTSTR#index.start | ${nm} initialized.`);
               rets[fns[i].name] = rslvdRet;
             }
 // console.log(`BTSTR#index | Got return from ${fns[i].name} = `, rslvdRet);
+console.log(`BTSTR#index.start | ${fns[i].name} initialized at ${+(new Date())}`);
             iterator(); // continue
           }).catch(error => reject(error));
         } else {
           rets[fns[i].name] = rslvd;
 // console.log(`BTSTR#index | Got return from ${fns[i].name} = `, rslvd);
+console.log(`BTSTR#index.start | ${fns[i].name} initialized at ${+(new Date())}`);
           iterator(); // continue
         }
       } else if (ret.then) {
         ret.then((rslvd) => {
           rets[fns[i].name] = rslvd;
 // console.log(`BTSTR#index | Got return from ${fns[i].name} = `, rslvd);
+console.log(`BTSTR#index.start | ${fns[i].name} initialized at ${+(new Date())}`);
           iterator(); // continue
         });
       } else {
         rets[fns[i].name] = ret;
 // console.log(`BTSTR#index | Got return from ${fns[i].name} = `, ret);
+console.log(`BTSTR#index.start | ${fns[i].name} initialized at ${+(new Date())}`);
         iterator(); // continue
       }
 
       return null; // TODO Check if its OK
     };
+console.log(`BTSTR#index.start | Started bootstrapping at ${+(new Date())}`);
     iterator();
   });
 }
