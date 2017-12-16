@@ -4,7 +4,8 @@
 
     <div class="main-container">
       <app-navbar></app-navbar>
-      <tags-view></tags-view>
+      <!-- <tags-view></tags-view> -->
+      <!-- <app-taskbar></app-taskbar> -->
       <app-main></app-main>
     </div>
   </div>
@@ -14,14 +15,16 @@
   import AppNavbar from 'components/AppNavbar';
   import AppSidebar from 'components/AppSidebar';
   import AppMain from 'components/AppMain';
-  import TagsView from 'components/TagsView'; // TODO Rename it as AppTaskbar
+  // // import TagsView from 'components/TagsView'; // TODO Rename it as AppTaskbar
+  // import AppTaskbar from 'components/AppTaskbar'; // TODO Rename it as AppTaskbar
 
   export default {
     components: {
       AppNavbar,
       AppSidebar,
       AppMain,
-      TagsView,
+      // // TagsView,
+      // AppTaskbar,
     },
     computed: {
       hideSidebar() {
