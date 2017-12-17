@@ -19,7 +19,6 @@ import router from 'router';
 
 async function tryToLogUserIn({ email, password }) {
   let userId = -1;
-  let userInfo = null;
 
   try {
     const tokens = await login({ email, password });
@@ -40,9 +39,8 @@ async function tryToLogUserIn({ email, password }) {
 
   try {
     const userInfoResponse = await getUserInfo(userId);
-    userInfo = userInfoResponse.data;
 
-    store.commit(SET_USER, userInfo);
+    store.commit(SET_USER, userInfoResponse);
   } catch (error) {
     return Promise.reject({
       title: 'Login Error',
@@ -55,23 +53,6 @@ async function tryToLogUserIn({ email, password }) {
 }
 
 export default function initialize(bus) {
-  // bus.on(TRY_USER_LOGIN, async (...params) => {
-  //   try {
-  //     await tryToLogUserIn(bus, ...params);
-  //   } catch (error) {
-  //     bus.$emit(LOGIN_ERROR, error);
-
-  //     return;
-  //   }
-
-  //   // since the user has logged in we can unlisten the event
-  //   bus.off(TRY_USER_LOGIN);
-
-  //   bus.emit(USER_LOGGED_IN);
-
-  //   // FIXME Ensure there is no other place does this redirection
-  //   router.replace({ name: 'app.index' });
-  // });
   bus.on(TRY_USER_LOGIN, (...params) => {
     tryToLogUserIn(...params)
       .then(() => {
@@ -81,7 +62,7 @@ export default function initialize(bus) {
         bus.emit(USER_LOGGED_IN);
 
         // FIXME Ensure there is no other place does this redirection
-        router.replace({ name: 'app.index' });
+        router.replace({ name: 'index' });
       })
       .catch(error => bus.$emit(LOGIN_ERROR, error));
   });

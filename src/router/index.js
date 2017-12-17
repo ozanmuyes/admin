@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
   // Let the component that listen that event register
   // the callback on their `mounted` life-cycle hook.
 
-  bus.emitAsync(10, NAVIGATED, to); // TODO Test me if async emitting is necessary here (since \
+  bus.emitAsync(2, NAVIGATED, to); // TODO Test me if async emitting is necessary here (since \
   // ) there is another listener for it
   // setTimeout(() => {
   //   bus.emit(NAVIGATED, to);

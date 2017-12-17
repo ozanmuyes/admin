@@ -10,7 +10,7 @@
 // API methods doesn't do anything with the store and doesn't
 // emit any events. The are primarily called from event
 // listener. FIXME Burası doğru mu?
-// An API function MAY return a Promise.
+// An API function MAY return a Promise (async function).
 
 import api from './';
 
@@ -22,8 +22,7 @@ export async function login({ email, password } /* credentials */) {
       password,
       for: 'app://yeppa-front', // TODO Get that from configuration or somewhere similar
     })
-      .then((response) => {
-        const tokenData = response.data;
+      .then((tokenData) => {
         // commit(SET_TOKENS, tokenData);
         resolve(tokenData);
       })

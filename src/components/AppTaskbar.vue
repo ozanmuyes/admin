@@ -46,8 +46,8 @@
     },
     methods: {
       addTab(route) {
-console.log('CMPNT#AppTaskbar | add tab', route);
-        // NOTE `route` has `name`, `title`, ``... properties
+        // `route` has `name`, `title`, ``... properties
+
         let name = '';
         if (route.name) {
           name = route.name;
@@ -62,10 +62,16 @@ console.log('CMPNT#AppTaskbar | add tab', route);
           : 'NO TITLE';
 
         // TODO Check if the route wasn't opened before
-        this.tabs.push({ name, title });
+        const ifExistIndex = this.tabs.findIndex(tab => (tab.name === name));
 
-        if (route.meta && route.meta.noCache === false) {
-          this.$store.state.cachedViews.push(name);
+        if (ifExistIndex === -1) {
+// console.log('CMPNT#AppTaskbar | add tab', route);
+
+          this.tabs.push({ name, title });
+
+          if (route.meta && route.meta.noCache === false) {
+            this.$store.state.cachedViews.push(name);
+          }
         }
 
         // TODO Activate the last added tab
@@ -76,10 +82,12 @@ console.log('CMPNT#AppTaskbar | add tab', route);
           return;
         }
 
-console.log('CMPNT#AppTaskbar | change tab to', selectedTab);
+// console.log('CMPNT#AppTaskbar | change tab to', selectedTab);
         // We may access index, name and label (title),
 
-        // FIXME This will trigger NAVIGATED again and adds another (identical) tab to the array
+        // FIXME This will trigger NAVIGATED again and adds another (identical) tab to the array \
+        // For now checking if the tab that is navigated to is exist or not (see `ifExistIndex`)
+        // but it is not a proper solution.
         this.$router.push({ name: selectedTab.name });
       },
       deleteTab(deletedTabName) {
@@ -88,6 +96,8 @@ console.log('CMPNT#AppTaskbar | change tab to', selectedTab);
         const deletedTabIndex = this.tabs.findIndex(tab => (tab.name === deletedTabName));
 
         this.tabs.splice(deletedTabIndex, 1);
+
+        // TODO Also delete from the state if it was added as 'cached view'
 
         // this.$bus.emit(CLOSE_TAB); // TODO Send deletedTabName if needed
       },

@@ -1,9 +1,16 @@
+/* eslint-disable no-unused-vars */
+
 import AdminLayout from 'layouts/Admin';
+import PageWrapper from 'layouts/PageWrapper';
 
 import AdminDashboard from 'pages/AdminDashboard';
 import AdminUsersIndex from 'pages/Admin/Users/Index';
 import AdminUsersView from 'pages/Admin/Users/View';
 import AdminUsersEdit from 'pages/Admin/Users/Edit';
+import AdminQuizzesIndex from 'pages/Admin/Quizzes/Index';
+import AdminQuizzesAdd from 'pages/Admin/Quizzes/Add';
+import AdminQuizzesView from 'pages/Admin/Quizzes/View';
+import AdminQuizzesEdit from 'pages/Admin/Quizzes/Edit';
 
 export default {
   // base: '/me',
@@ -26,7 +33,7 @@ export default {
       children: [
         {
           path: '',
-          name: 'app.index',
+          name: 'index',
           component: AdminDashboard,
           meta: {
             name: 'dashboard',
@@ -36,8 +43,91 @@ export default {
       ],
     },
     {
+      path: '/quizzes',
+      component: AdminLayout,
+      meta: {
+        title: 'quizzes',
+        // TODO What if there is no 'subtitle'?
+        subtitle: 'gesi bağları',
+      },
+      children: [
+        {
+          path: '',
+          name: 'quizzes.index',
+          component: AdminQuizzesIndex,
+          meta: {
+            title: 'list',
+          },
+        },
+        {
+          path: 'new',
+          name: 'quizzes.add',
+          component: AdminQuizzesAdd,
+          meta: {
+            title: 'new',
+          },
+        },
+        {
+          path: ':quizId',
+          name: 'quizzes.view',
+          component: AdminQuizzesView,
+          meta: {
+            title: 'view',
+          },
+          children: [
+            {
+              path: 'edit',
+              name: 'quizzes.edit',
+              component: AdminQuizzesEdit,
+              meta: {
+                title: 'edit',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    // {
+    //   path: '/users',
+    //   // name: 'users.index',
+    //   component: AdminLayout,
+    //   meta: {
+    //     title: 'users',
+    //     subtitle: 'list',
+    //   },
+    //   children: [
+    //     {
+    //       path: '',
+    //       name: 'users.index',
+    //       component: AdminUsersIndex,
+    //       meta: {
+    //         title: 'list',
+    //       },
+    //     },
+    //     {
+    //       path: ':userId',
+    //       name: 'users.view',
+    //       component: AdminUsersView,
+    //       meta: {
+    //         title: 'view',
+    //       },
+    //     },
+    //     {
+    //       path: 'edit',
+    //       name: 'users.edit',
+    //       component: AdminUsersEdit,
+    //       // // alias: '/',
+    //       // redirect: '//google.com',
+    //       meta: {
+    //         title: 'edit',
+    //         subtitle: 'edit user',
+    //       },
+    //     },
+    //     //
+    //   ],
+    // },
+    {
       path: '/users',
-      // name: 'users.index',
       component: AdminLayout,
       meta: {
         title: 'users',
@@ -54,24 +144,30 @@ export default {
         },
         {
           path: ':userId',
-          name: 'users.view',
-          component: AdminUsersView,
-          meta: {
-            title: 'view',
-          },
+          component: PageWrapper,
+          children: [
+            {
+              path: '',
+              name: 'users.view',
+              component: AdminUsersView,
+              meta: {
+                title: 'view',
+              },
+            },
+            {
+              path: 'edit',
+              name: 'users.edit',
+              component: AdminUsersEdit,
+              // // alias: '/',
+              // redirect: '//google.com',
+              meta: {
+                title: 'edit',
+                subtitle: 'edit user',
+              },
+            },
+            //
+          ],
         },
-        {
-          path: 'edit',
-          name: 'users.edit',
-          component: AdminUsersEdit,
-          // // alias: '/',
-          // redirect: '//google.com',
-          meta: {
-            title: 'edit',
-            subtitle: 'edit user',
-          },
-        },
-        //
       ],
     },
   ],

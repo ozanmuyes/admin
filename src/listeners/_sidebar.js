@@ -60,12 +60,10 @@ function initialize(bus) {
   // check, simply `push`ing the listened event is enough.
   //
   bus.$once(USER_LOGGED_IN, () => {
-console.log('USER_LOGGED_IN was emitted.');
     emittedEvents.push(USER_LOGGED_IN);
   });
 
   bus.$once(ROUTES_LOADED, (loadedRoutes) => {
-console.log('ROUTES_LOADED was emitted.');
     emittedEvents.push(ROUTES_LOADED);
 
     param = loadedRoutes;

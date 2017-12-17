@@ -12,25 +12,31 @@
 </template>
 
 <script>
-  import { UPDATE_BREADCRUMBS } from 'event/types';
+  // import { UPDATE_BREADCRUMBS } from 'event/types'; // [USSTRNSTD]
 
   export default {
-    data() {
-      return {
-        items: [],
-      };
-    },
-    mounted() {
-// console.log('CMPNT#AppBreadcrumb | UPDATE_BREADCRUMBS event is listening...');
-      this.$bus.$on(UPDATE_BREADCRUMBS, (breadcrumbs) => {
-// console.log('CMPNT#AppBreadcrumb | update breadcrumbs as = ', breadcrumbs);
+// [USSTRNSTD]
+//    data() {
+//      return {
+//        items: [],
+//      };
+//    },
+//     mounted() {
+// // console.log('CMPNT#AppBreadcrumb | UPDATE_BREADCRUMBS event is listening...');
+//       this.$bus.$on(UPDATE_BREADCRUMBS, (breadcrumbs) => {
+// // console.log('CMPNT#AppBreadcrumb | update breadcrumbs as = ', breadcrumbs);
 
-        this.items = breadcrumbs;
-      });
-    },
-    beforeDestroy() {
-// console.log('CMPNT#AppBreadcrumb | UPDATE_BREADCRUMBS event is not listened anymore.');
-      this.$bus.$off(UPDATE_BREADCRUMBS);
+//         this.items = breadcrumbs;
+//       });
+//     },
+//     beforeDestroy() {
+// // console.log('CMPNT#AppBreadcrumb | UPDATE_BREADCRUMBS event is not listened anymore.');
+//       this.$bus.$off(UPDATE_BREADCRUMBS);
+//     },
+    computed: {
+      items() { // [USSTRNSTD]
+        return this.$store.state.app.breadcrumbs;
+      },
     },
     methods: {
       generateTitle(title) {

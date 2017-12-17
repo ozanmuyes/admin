@@ -1,7 +1,13 @@
 /* eslint-disable no-continue */
 
-import { NAVIGATED, UPDATE_BREADCRUMBS } from 'event/types';
+import {
+  NAVIGATED,
+  // UPDATE_BREADCRUMBS, // [USSTRNSTD]
+} from 'event/types';
 // import reduce from 'router/for/breadcrumbs';
+
+import store from 'store'; // [USSTRNSTD]
+import { UPDATE_BREADCRUMBS } from 'store/mutation-types'; // [USSTRNSTD]
 
 function initialize(bus) {
 // debugger;
@@ -51,7 +57,8 @@ function initialize(bus) {
         });
       }
 
-      bus.emitAsync(10, UPDATE_BREADCRUMBS, breadcrumbs);
+      // bus.emitAsync(10, UPDATE_BREADCRUMBS, breadcrumbs); // [USSTRNSTD]: use store instead
+      store.commit(UPDATE_BREADCRUMBS, { breadcrumbs });
     }
   });
 }

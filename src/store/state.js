@@ -1,6 +1,7 @@
 export default {
   app: {
     breakpoint: '',
+    breadcrumbs: [], // [USSTRNSTD]
     hasSidebarOpened: true,
     sidebarRoutes: [],
     visitedViews: [], // NOTE This is not necessary as the visited ones store in the Taskbar too \

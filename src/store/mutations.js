@@ -14,6 +14,9 @@ export default {
     // TODO Maybe do NOT use `Object.assign`
     state.user = Object.assign(state.user, payload);
   },
+  [types.UPDATE_ACCESS_TOKEN](state, { access_token }) {
+    state.user.access_token = access_token;
+  },
   [types.LOGOUT](state) {
     state.user = emptyState.user;
   },
@@ -22,6 +25,9 @@ export default {
   //
   [types.SET_SIDEBAR_ROUTES](state, { routes }) {
     state.app.sidebarRoutes = routes;
+  },
+  [types.UPDATE_BREADCRUMBS](state, { breadcrumbs }) { // [USSTRNSTD]
+    state.app.breadcrumbs = breadcrumbs;
   },
   [types.TOGGLE_SIDEBAR](state) {
     state.app.hasSidebarOpened = !state.app.hasSidebarOpened;

@@ -5,7 +5,7 @@
       @toggled="toggleSidebar"
     ></app-hamburger>
 
-    <app-breadcrumbs class="breadcrumb-container" :dashboard-path="'/'" dashboard-path="/"></app-breadcrumbs>
+    <!-- <app-breadcrumbs class="breadcrumb-container" :dashboard-path="'/'" dashboard-path="/"></app-breadcrumbs> -->
 
     <div class="right-menu">
       <el-dropdown v-if="isScreenBigEnough"
@@ -40,13 +40,13 @@
   import { mapGetters } from 'vuex';
   import { TOGGLE_SIDEBAR } from 'store/mutation-types';
 
-  import AppBreadcrumbs from 'components/AppBreadcrumbs';
+  // import AppBreadcrumbs from 'components/AppBreadcrumbs';
   import AppHamburger from 'components/AppHamburger';
   import SvgIcon from 'components/SvgIcon';
 
   export default {
     components: {
-      AppBreadcrumbs,
+      // AppBreadcrumbs,
       AppHamburger,
       SvgIcon,
     },

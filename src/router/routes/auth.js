@@ -17,7 +17,7 @@ export default [
     beforeEnter: (to, from, next) => {
       if (store.getters.isLoggedIn) {
         // TODO Maybe show an alert stating that the user has already been logged in
-        next({ name: 'app.index' });
+        next({ name: 'index' });
       } else {
         next();
       }

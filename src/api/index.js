@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 // TODO Export the gateway instance from this
 
 // NOTE Do NOT all-import and then export, every file stands
@@ -47,13 +49,11 @@ api.interceptors.response.use(
           refresh_token: store.state.user.refresh_token,
         })
         .then((refreshResponse) => {
-          const refreshData = refreshResponse.data.data;
-
           // Store the new access_token in to the store
-          store.commit(UPDATE_ACCESS_TOKEN, { access_token: refreshData.access_token });
+          store.commit(UPDATE_ACCESS_TOKEN, { access_token: refreshResponse.access_token });
 
           // Replay the last request
-          originalRequest.headers.Authorization = `Bearer ${refreshData.access_token}`;
+          originalRequest.headers.Authorization = `Bearer ${refreshResponse.access_token}`;
           resolve(api(originalRequest));
         })
         // TODO Error occured while refreshing the token - what to do?
@@ -67,7 +67,28 @@ api.interceptors.response.use(
 
 // Get the payload from the response
 api.interceptors.response.use(
-  response => response.data, // Since there is no error
+  (response) => {
+    // Since there is no error
+
+    const payloadData = { ...response.data.data };
+//     delete response.data.data;
+//     const payload = { ...response.data };
+//     delete response.data;
+//     // the `response` from Axios. it left with `config`, `headers` etc. now
+// // debugger;
+//     // Reversed order // ~[DNTNSTSBLNG]
+//     payload.axios = response;
+//     payloadData.response = payload;
+//     // TODO Make this proxy so when assigned to another object return only the properties \
+//     //      except 'response' and 'axios'. This is useful for [API_call].then((foo) => {bar = foo;})
+    return payloadData;
+
+    // return { // ~[DNTNSTSBLNG]: do not nest, use sibling
+    //   payload: payloadData,
+    //   response: payload,
+    //   axios: response,
+    // };
+  },
   // eslint-disable-next-line
   (error) => {
     // TODO What todo when there is an `error`

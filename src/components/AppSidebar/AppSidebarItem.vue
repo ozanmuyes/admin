@@ -19,7 +19,7 @@
           :key="item.name"
         >
           <template slot="title">
-            <!-- X -->
+            Y
             <!-- <svg-icon v-if="item.meta.icon" :icon-class="item.meta.icon"></svg-icon> -->
             <i v-if="item.meta.icon" :class="item.meta.icon"></i>
             <span v-if="item.meta.title">{{ generateTitle(item.meta.title) }}</span>
@@ -32,15 +32,15 @@
               :routes="[child]"
             ></app-sidebar-item>
 
-            <el-menu-item v-else :index="item.path+'/'+child.path">
+            <el-menu-item v-else :index="`${item.path}/${child.path}`">
               <router-link
                 :key="child.name"
                 :to="normalizePath(item.path, child.path)"
               >
-                <!-- ZZZ -->
+                ZZ
                 <!-- <svg-icon v-if="child.icon" :icon-class="child.icon"></svg-icon> -->
                 <i v-if="child.icon" :class="child.icon"></i>
-                <span v-if="child.meta.title">{{ generateTitle(child.meta.title) }}</span>
+                <span v-if="child.meta.title">{{ generateTitle(`${item.meta.title}.${child.meta.title}`) }}</span>
               </router-link>
             </el-menu-item>
           </template>
@@ -54,7 +54,7 @@
             :key="item.name"
             :to="item.path"
           >
-            <!-- YY -->
+            X
             <!-- <svg-icon v-if="item.meta.icon" :icon-class="item.meta.icon"></svg-icon> -->
             <i v-if="item.meta.icon" :class="item.meta.icon"></i>
             <span v-if="item.meta.title">{{ generateTitle(item.meta.title) }}</span>
