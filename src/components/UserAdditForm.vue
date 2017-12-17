@@ -45,12 +45,16 @@
 </template>
 
 <script>
-  /* eslint-disable max-len */
+  /* eslint-disable max-len, no-unused-vars */
 
   import {
     add as addUser,
     edit as editUser,
   } from 'api/users';
+  import {
+    USER_ADDED,
+    USER_UPDATED,
+  } from 'event/types';
   import { titleCase as titleCaseFilter } from 'filters';
   import deep from 'deep-diff';
 
@@ -158,26 +162,28 @@ console.warn('No changes, will do nothing.');
                 const objToSend = {};
                 deep.observableDiff(this.data, this.user, d => deep.applyChange(objToSend, diff, d));
 
-                editUser(this.data.id, objToSend)
-                  .then(() => {
-                    this.$emit('submitted');
-                  })
-                  .catch((error) => {
-                    this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
-                  });
+//                editUser(this.data.id, objToSend)
+//                  .then(() => {
+//                    this.$emit('submitted');
+                    this.$bus.$emit(USER_UPDATED, { diff, objToSend });
+//                  })
+//                  .catch((error) => {
+//                    this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
+//                  });
               }
             } else {
               // Adding new user...
 
-              addUser(this.user)
-                .then(() => {
-                  // NOTE User has been added
-
-                  this.$emit('submitted');
-                })
-                .catch((error) => {
-                  this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
-                });
+//              addUser(this.user)
+//                .then(() => {
+//                  // NOTE User has been added
+//
+//                  this.$emit('submitted');
+                  this.$bus.$emit(USER_ADDED, this.user);
+//                })
+//                .catch((error) => {
+//                  this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
+//                });
             }
           }
         });

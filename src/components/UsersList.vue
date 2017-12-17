@@ -43,6 +43,12 @@
     remove as removeUser,
   } from 'api/users';
 
+  import {
+    USER_ADDED,
+    USER_UPDATED,
+    USER_REMOVED,
+  } from 'event/types';
+
   export default {
     data() {
       return {
@@ -58,12 +64,46 @@
         },
       };
     },
+    mounted() {
+      this.$bus.on(USER_ADDED, (user) => {
+        this.users.push(user);
+
+        // TODO Re-calculate pagination
+      });
+      this.$bus.on(USER_UPDATED, ({ diffMap, diffValues }) => {});
+      this.$bus.on(USER_REMOVED, (removedUser) => {
+        // Remove the deleted user from the 'data.users' array
+        const removedUserIndex = this.users.findIndex(user => (user.id === removedUser.id));
+
+        if (removedUserIndex > -1) {
+          this.users.splice(removedUserIndex, 1);
+        }
+      });
+    },
     created() {
       this.pageNo = 1;
+    },
+    beforeDestroy() {
+      this.$bus.off(USER_ADDED);
+      this.$bus.off(USER_UPDATED);
+      this.$bus.off(USER_REMOVED);
     },
     methods: {
       paginate(currentPageNo) {
         this.pageNo = currentPageNo;
+      },
+      recalculatePaginate() {
+        // this.usersPagination = response.data.pagination;
+
+        if (this.users.length > (this.perPage * this.usersPagination.page_count)) {
+          // TODO User was added, so add new page
+debugger;
+          this.usersPagination.page_count += 1;
+        } else if (this.users.length > (this.perPage * this.usersPagination.count)) {
+          // TODO User was removed, so remove last page
+debugger;
+          this.usersPagination.page_count += 1;
+        }
       },
       deleteUser(index, user) {
         this.$confirm(`Are you sure to delete the user with username '${user.username}'?`, 'Delete User', {
@@ -77,16 +117,18 @@
               confirmButtonClass: 'el-button--danger',
             })
               .then((result) => {
-console.log(result, user.username);
-debugger;
                 if (result.value === user.username) {
 //                  removeUser(user.id)
 //                     .then((response) => {
 // console.log(response);
-                      // Remove the deleted user from the 'data.users' array
-                      this.users.splice(index, 1);
+                      const removedUser = this.users[index];
+
+                      // Do NOT remove from the array immediately, instead do it in event callback
+                      // // Remove the deleted user from the 'data.users' array
+                      // this.users.splice(index, 1);
 
                       // TODO Update the pagination if necessary
+                      this.$bus.emit(USER_REMOVED, removedUser);
 //                     })
 //                     .catch((error) => {
 // console.log(error);

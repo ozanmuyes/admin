@@ -8,4 +8,7 @@ export const NAVIGATED = 'NAVIGATED';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const OPEN_IN_NEW_TAB = 'OPEN_IN_NEW_TAB'; // Taskbar tabs
 export const CLOSE_TAB = 'CLOSE_TAB'; // Taskbar tabs
+export const USER_ADDED = 'USER_ADDED';
+export const USER_UPDATED = 'USER_UPDATED';
+export const USER_REMOVED = 'USER_REMOVED';
 //
