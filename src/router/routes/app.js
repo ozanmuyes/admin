@@ -11,6 +11,7 @@ import Dashboard from 'pages/Dashboard';
 import AdminUsersIndex from 'pages/Admin/Users/Index';
 import AdminUsersView from 'pages/Admin/Users/View';
 import AdminUsersEdit from 'pages/Admin/Users/Edit';
+import AdminUsersAdd from 'pages/Admin/Users/Add';
 import AdminQuizzesIndex from 'pages/Admin/Quizzes/Index';
 import AdminQuizzesAdd from 'pages/Admin/Quizzes/Add';
 import AdminQuizzesView from 'pages/Admin/Quizzes/View';
@@ -108,6 +109,14 @@ export default {
           component: AdminUsersIndex,
           meta: {
             title: 'list',
+          },
+        },
+        {
+          path: 'add',
+          name: 'users.add',
+          component: AdminUsersAdd,
+          meta: {
+            title: 'add',
           },
         },
         {
