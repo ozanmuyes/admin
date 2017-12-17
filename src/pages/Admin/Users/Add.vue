@@ -1,18 +1,13 @@
 <template>
   <div>
-    <span>edit user: {{ user_name }}</span>
-
-    <!-- <br>
-    <router-link to="/users/1/edit">Edit user with the id of 1</router-link> -->
-
     <el-row>
       <el-col :sm="24" :md="12" :lg="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>Edit User</span>
+            <span>Add User</span>
           </div>
 
-          <user-addit-form saveButtonText="update" :data="user" @submitted="userUpdated"></user-addit-form>
+          <user-addit-form @submitted="userAdded"></user-addit-form>
         </el-card>
       </el-col>
     </el-row>
@@ -26,19 +21,8 @@
     components: {
       UserAdditForm,
     },
-    props: {
-      user: {
-        type: Object,
-        required: true,
-      },
-    },
-    computed: {
-      user_name() {
-        return `${this.user.first_name} ${this.user.last_name}`;
-      },
-    },
     methods: {
-      userUpdated() {
+      userAdded() {
 console.log('routing to \'users.index\'...');
         // this.$router.push({ name: 'users.index' });
       },
