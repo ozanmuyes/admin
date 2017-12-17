@@ -1,5 +1,9 @@
 import api from './';
 
+export function list(...params) {
+  return api.get('/users', ...params);
+}
+
 export { getUserInfo as view } from './auth';
 
 export function add(user) {

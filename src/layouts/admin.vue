@@ -5,7 +5,7 @@
     <div class="main-container">
       <app-navbar></app-navbar>
       <!-- <app-taskbar></app-taskbar> -->
-      <app-main></app-main>
+      <app-main :class="$style.mainContainer"></app-main>
     </div>
   </div>
 </template>
@@ -40,5 +40,11 @@
     position: relative;
     height: 100%;
     width: 100%;
+  }
+</style>
+
+<style module>
+  .mainContainer {
+    padding: 20px;
   }
 </style>

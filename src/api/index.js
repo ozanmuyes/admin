@@ -70,6 +70,9 @@ api.interceptors.response.use(
 api.interceptors.response.use(
   (response) => {
     // Since there is no error
+    if (response.config && response.config.deleteExtras === false) {
+      return response;
+    }
 
     const payloadData = { ...response.data.data };
 //     delete response.data.data;
