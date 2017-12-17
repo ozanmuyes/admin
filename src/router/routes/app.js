@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 
 import AdminLayout from 'layouts/Admin';
-import PageWrapper from 'layouts/PageWrapper';
+
+import UserPageWrapper from 'wrappers/User';
 
 import AdminDashboard from 'pages/AdminDashboard';
 import AdminUsersIndex from 'pages/Admin/Users/Index';
@@ -144,7 +145,7 @@ export default {
         },
         {
           path: ':userId',
-          component: PageWrapper,
+          component: UserPageWrapper,
           children: [
             {
               path: '',

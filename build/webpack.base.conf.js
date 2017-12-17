@@ -38,12 +38,13 @@ module.exports = {
       '@': resolve('src'),
       api: resolve('src/api'),
       components: resolve('src/components'),
+      event: resolve('src/event'),
       filters: resolve('src/filters'),
       layouts: resolve('src/layouts'),
       pages: resolve('src/pages'),
-      store: resolve('src/store'),
       router: resolve('src/router'),
-      event: resolve('src/event'),
+      store: resolve('src/store'),
+      wrappers: resolve('src/wrappers'),
     }
   },
   module: {

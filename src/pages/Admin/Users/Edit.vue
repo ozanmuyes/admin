@@ -1,5 +1,10 @@
 <template>
-  <span>edit user: {{ user_name }}</span>
+  <div>
+    <span>edit user: {{ user_name }}</span>
+
+    <br>
+    <router-link to="/users/1/edit">Edit user with the id of 1</router-link>
+  </div>
 </template>
 
 <script>

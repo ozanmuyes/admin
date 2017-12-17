@@ -7,6 +7,8 @@
 
       <br>
       <router-link :to="{ name: 'users.edit' }">Edit</router-link>
+      <br>
+      <router-link :to="{ name: 'users.view', params: { userId: 1 } }">View User with Id 2</router-link>
     </div>
   </div>
 </template>
