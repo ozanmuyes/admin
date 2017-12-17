@@ -14,7 +14,8 @@ import { UPDATE_ACCESS_TOKEN } from 'store/mutation-types';
 
 // See https://github.com/axios/axios#request-config
 const config = {
-  baseURL: 'http://localhost:8765/api', // TODO Get this (baseURL) from the store
+  // TODO Get this (baseURL) from the store
+  baseURL: process.env.API_BASE, // 'http://localhost:8765/api',
   headers: {
     Accept: 'application/json',
     // Do NOT set Authorization header here - see below request interceptor

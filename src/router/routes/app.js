@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 
-import AdminLayout from 'layouts/Admin';
+import Layout from 'layouts/Index'; // ~[SGNRCLYT]
+// import AdminLayout from 'layouts/Admin'; // ~[SGNRCLYT]: use a generic layout
+// // import LecturerLayout from 'layouts/Lecturer';
 
 import UserPageWrapper from 'wrappers/User';
 
-import AdminDashboard from 'pages/AdminDashboard';
+import Dashboard from 'pages/Dashboard';
+
 import AdminUsersIndex from 'pages/Admin/Users/Index';
 import AdminUsersView from 'pages/Admin/Users/View';
 import AdminUsersEdit from 'pages/Admin/Users/Edit';
@@ -19,13 +22,14 @@ export default {
   // route exported from this file will have `meta` field.
   // Route items (entries of `routes` below) tend to override those.
   meta: {
-    roles: ['admin'],
+    roles: ['admin', 'lecturer'],
   },
   // TODO `path`s should be acceptable by `<a>` as 'href'
   routes: [
     {
       path: '/',
-      component: AdminLayout,
+      component: Layout, // ~[SGNRCLYT]
+      // component: AdminLayout, // ~[SGNRCLYT]
       meta: {
         roles: ['mod'],
         index: -1,
@@ -35,7 +39,7 @@ export default {
         {
           path: '',
           name: 'index',
-          component: AdminDashboard,
+          component: Dashboard,
           meta: {
             name: 'dashboard',
             title: 'dashboard',
@@ -45,7 +49,8 @@ export default {
     },
     {
       path: '/quizzes',
-      component: AdminLayout,
+      component: Layout, // ~[SGNRCLYT]
+      // component: AdminLayout, // ~[SGNRCLYT]
       meta: {
         title: 'quizzes',
         // TODO What if there is no 'subtitle'?
@@ -88,48 +93,10 @@ export default {
         },
       ],
     },
-    // {
-    //   path: '/users',
-    //   // name: 'users.index',
-    //   component: AdminLayout,
-    //   meta: {
-    //     title: 'users',
-    //     subtitle: 'list',
-    //   },
-    //   children: [
-    //     {
-    //       path: '',
-    //       name: 'users.index',
-    //       component: AdminUsersIndex,
-    //       meta: {
-    //         title: 'list',
-    //       },
-    //     },
-    //     {
-    //       path: ':userId',
-    //       name: 'users.view',
-    //       component: AdminUsersView,
-    //       meta: {
-    //         title: 'view',
-    //       },
-    //     },
-    //     {
-    //       path: 'edit',
-    //       name: 'users.edit',
-    //       component: AdminUsersEdit,
-    //       // // alias: '/',
-    //       // redirect: '//google.com',
-    //       meta: {
-    //         title: 'edit',
-    //         subtitle: 'edit user',
-    //       },
-    //     },
-    //     //
-    //   ],
-    // },
     {
       path: '/users',
-      component: AdminLayout,
+      component: Layout, // ~[SGNRCLYT]
+      // component: AdminLayout, // ~[SGNRCLYT]
       meta: {
         title: 'users',
         subtitle: 'list',

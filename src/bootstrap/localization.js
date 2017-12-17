@@ -1,9 +1,5 @@
 import VueI18n from 'vue-i18n';
 
-import elementEn from 'element-ui/lib/locale/lang/en';
-// import elementDe from 'element-ui/lib/locale/lang/de';
-// import elementTr from 'element-ui/lib/locale/lang/tr-TR';
-
 import routerEn from 'router/lang/en';
 //
 
@@ -20,17 +16,14 @@ function initialize({ Vue }) {
   const messages = {
     en: {
       ...en,
-      ...elementEn,
       ...routerEn,
     },
     de: {
       ...de,
-      // ...elementDe,
       // route: routerDe,
     },
     tr: {
       ...tr,
-      // ...elementTr,
       // route: routerTr,
     },
   };

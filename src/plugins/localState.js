@@ -1,5 +1,10 @@
 /* eslint-disable */
 
+// TODO While persisting secure the data that has been persisting
+//      by hashing the state object that will be persisted.
+//      And on the load check the hash with the loaded
+//      data's hash which was calculated.
+
 import merge from 'deepmerge';
 import shvl from 'shvl';
 

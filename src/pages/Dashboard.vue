@@ -1,5 +1,5 @@
 <template>
-  <span>admin dashboard</span>
+  <span>dashboard</span>
 </template>
 
 <script>
