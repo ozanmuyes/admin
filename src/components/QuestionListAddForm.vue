@@ -45,16 +45,24 @@
         ref="form"
         size="small"
       >
-        <el-form-item :label="titleCase($t('text'))">
-          <el-input v-model="selectedQuestion.text"></el-input>
+        <el-form-item :label="titleCase(t('text'))">
+          <el-input v-model="selectedQuestion.text" required></el-input>
         </el-form-item>
 
-        <el-form-item :label="`${titleCase(t('time_limit'))}?`">
-          <el-input-number v-model="selectedQuestion.time_limit"></el-input-number>
+        <el-form-item :label="titleCase(t('time_limit'))">
+          <el-input-number
+            :min="0"
+            :max="600"
+            v-model="selectedQuestion.time_limit"
+          ></el-input-number>
         </el-form-item>
 
-        <el-form-item :label="`${titleCase(t('score'))}?`">
-          <el-input-number v-model="selectedQuestion.score"></el-input-number>
+        <el-form-item :label="titleCase(t('score'))">
+          <el-input-number
+            :min="0"
+            :max="1000"
+            v-model="selectedQuestion.score"
+          ></el-input-number>
         </el-form-item>
 
         <el-form-item>
@@ -65,6 +73,7 @@
           >Update</el-button>
           <el-button
             @click="onAdd"
+            :disabled="isNewBtnDisabled"
             plain
             type="success"
           >New</el-button>
@@ -73,7 +82,10 @@
     </el-form-item>
 
     <el-form-item label="Answers">
-      <answers-list-add-form :answers="selectedQuestionAnswers"></answers-list-add-form>
+      <answers-list-add-form
+        :answers="selectedQuestionAnswers"
+        :disabled="isAnswersComponentDisabled"
+      ></answers-list-add-form>
     </el-form-item>
   </div>
 </template>
@@ -138,13 +150,26 @@
         //   },
         // ],
         selectedQuestionIndex: -1,
-        selectedQuestionAnswers: [],
+        // selectedQuestionAnswers: [],
         //
       };
     },
     computed: {
       isUpdateBtnDisabled() {
         return (this.selectedQuestionIndex === -1);
+      },
+      isNewBtnDisabled() {
+        return (this.selectedQuestion.text === '');
+      },
+      isAnswersComponentDisabled() {
+        return (this.selectedQuestionIndex === -1);
+      },
+      selectedQuestionAnswers() {
+        if (this.selectedQuestionIndex === -1) {
+          return [];
+        }
+
+        return this.questions[this.selectedQuestionIndex].answers;
       },
     },
     methods: {
@@ -166,11 +191,19 @@
         updatingQuestion.score = this.selectedQuestion.score;
       },
       onAdd() {
-        const newQuestion = Object.assign({}, emptyQuestion, {
+        // const newQuestion = Object.assign({}, emptyQuestion, {
+        //   text: this.selectedQuestion.text,
+        //   time_limit: this.selectedQuestion.time_limit,
+        //   score: this.selectedQuestion.score,
+        // });
+        const newQuestion = {
           text: this.selectedQuestion.text,
           time_limit: this.selectedQuestion.time_limit,
           score: this.selectedQuestion.score,
-        });
+          answers: [],
+        };
+console.log(newQuestion);
+// debugger;
 
         // Add to component's related array
         // FIXME [DNTMTTPRSDT]
@@ -212,12 +245,12 @@
 
           this.selectedQuestion = { ...emptyQuestion };
           this.selectedQuestionIndex = -1;
-          this.selectedQuestionAnswers = [];
+          // this.selectedQuestionAnswers = [];
         } else {
           this.selectedQuestion = { ...selectedQuestion };
           this.selectedQuestionIndex = this.questions.findIndex(
             question => (question.text === selectedQuestion.text));
-          this.selectedQuestionAnswers = selectedQuestion.answers;
+          // this.selectedQuestionAnswers = selectedQuestion.answers;
         }
       },
     },

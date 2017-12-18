@@ -5,7 +5,6 @@ export default {
   error: 'error',
   update: 'update',
   name: 'name',
-  text: 'text',
   forms: {
     notValid: 'The form has errors.',
     userAddit: {
@@ -39,10 +38,12 @@ export default {
       no_data: 'No Questions',
       time_limit: 'time limit',
       score: 'score',
+      text: 'question text',
     },
     answersListAdd: {
       no_data: 'No Answers',
       is_right: 'is right',
+      text: 'answer text',
     },
     //
   },

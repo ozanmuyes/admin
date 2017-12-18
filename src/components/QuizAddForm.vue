@@ -89,7 +89,7 @@
         this.user = { ...emptyQuiz };
       },
       onSubmit() {
-        //
+        // TODO BIG ONE
       },
       onReset() {
         this.$confirm(

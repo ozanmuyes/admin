@@ -15,7 +15,10 @@
         <!-- <el-table-column prop="id" label="ID" width="50"></el-table-column> -->
         <el-table-column prop="text" label="Text" width="260"></el-table-column>
         <!-- FIXME 'is_right' won't render -->
-        <el-table-column prop="is_right" label="Is Right?" :resizable="false"></el-table-column>
+        <!-- <el-table-column prop="is_right" label="Is Right?" :resizable="false"></el-table-column> -->
+        <el-table-column label="Is Right?" :resizable="false">
+          <template scope="scope">{{ scope.row.is_right }}</template>
+        </el-table-column>
 
         <el-table-column fixed="right" label="Operations" width="160" :resizable="false">
           <template slot-scope="scope">
@@ -45,22 +48,23 @@
         ref="form"
         size="small"
       >
-        <el-form-item :label="titleCase($t('text'))">
-          <el-input v-model="selectedAnswer.text"></el-input>
+        <el-form-item :label="titleCase(t('text'))">
+          <el-input :disabled="disabled" v-model="selectedAnswer.text"></el-input>
         </el-form-item>
 
         <el-form-item :label="`${titleCase(t('is_right'))}?`">
-          <el-switch v-model="selectedAnswer.is_right"></el-switch>
+          <el-switch :disabled="disabled" v-model="selectedAnswer.is_right"></el-switch>
         </el-form-item>
 
         <el-form-item>
           <el-button
             @click="onUpdate"
-            :disabled="isUpdateBtnDisabled"
+            :disabled="disabled || isUpdateBtnDisabled"
             type="primary"
           >Update</el-button>
           <el-button
             @click="onAdd"
+            :disabled="disabled"
             plain
             type="success"
           >New</el-button>
@@ -95,13 +99,17 @@
       },                        //   text: '',
                                 //   is_right: false,
                                 // },
-      //
+      disabled: { // TODO Act upon it
+        type: Boolean,
+        default: true,
+      },
     },
     data() {
       return {
         selectedAnswer: emptyAnswer,
         // selectedAnswerId: -1,
         selectedAnswerIndex: -1,
+        internalDisable: false,
         indexOrderedIds: [
           // e.g. [5,4,7,6] means the question with id of 5 is in the first place
         ],
@@ -111,6 +119,9 @@
     computed: {
       isUpdateBtnDisabled() {
         return (this.selectedAnswerIndex === -1);
+      },
+      isComponentDisabled() {
+        return (this.disabled || this.internalDisable);
       },
     },
     methods: {
@@ -124,7 +135,11 @@
         return titleCaseFilter(text);
       },
       onUpdate() {
-        // TODO
+        // FIXME [DNTMTTPRSDT]: Do NOT directly mutate the parent's data
+        const updatingAnswer = this.answers[this.selectedAnswerIndex];
+
+        updatingAnswer.text = this.selectedAnswer.text;
+        updatingAnswer.is_right = this.selectedAnswer.is_right;
       },
       onAdd() {
         const newAnswer = Object.assign({}, emptyAnswer, {
@@ -150,10 +165,10 @@
         )
           .then((response) => {
             if (response === 'confirm') {
-              // TODO Remove from component's related array
+              // Remove from component's related array
               this.answers.splice(index, 1);
 
-              // TODO Emit an event to propagate the change
+              // Emit an event to propagate the change
               this.$emit('onRemove', answer);
             }
           })
@@ -177,8 +192,8 @@
         } else {
           // // this.selectedAnswerIndex = selectedAnswer.index;
           // this.selectedAnswerId = selectedAnswer.id;
-          this.selectedAnswer = selectedAnswer;
-          this.selectedAnswerIndex = this.questions.findIndex(
+          this.selectedAnswer = { ...selectedAnswer };
+          this.selectedAnswerIndex = this.answers.findIndex(
             answer => (answer.text === selectedAnswer.text));
         }
       },
@@ -189,6 +204,17 @@
           this.selectedAnswerChanged(this.answers[0]);
         }
       });
+    },
+    watch: {
+      // eslint-disable-next-line
+      'answers.length'() {
+        if (this.answers.length === 0) {
+          // Clear the form
+          this.selectedAnswer = { ...emptyAnswer };
+
+          this.internalDisable = true;
+        }
+      },
     },
   };
 </script>
