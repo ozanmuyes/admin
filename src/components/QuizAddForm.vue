@@ -36,13 +36,14 @@
 </template>
 
 <script>
+  import { add as addQuiz } from 'api/quizzes';
   import { titleCase as titleCaseFilter } from 'filters';
 
   import QuestionListAddForm from 'components/QuestionListAddForm';
 
   const emptyQuiz = {
-    id: -1, // 1,
-    user_id: -1, // 2,
+    // id: -1, // 1,
+    // user_id: -1, // 2,
     name: '', // 'quiz1 - quiz for not so dummies',
     description: null, // null,
     // is_enabled: , // true,
@@ -70,7 +71,9 @@
     data() {
       return {
         theQuiz: emptyQuiz,
-        rules: {},
+        rules: {
+          // TODO
+        },
         //
       };
     },
@@ -89,7 +92,19 @@
         this.user = { ...emptyQuiz };
       },
       onSubmit() {
-        // TODO BIG ONE
+        // NOTE this.$refs.form.validate((isValid) => {
+
+        // TODO THE BIG ONE
+        addQuiz(this.theQuiz)
+          .then((response) => {
+            //
+console.log(response, this.theQuiz);
+// debugger;
+            this.$emit('quizAdded');
+          })
+          .catch((error) => { // eslint-disable-line
+            // TODO
+          });
       },
       onReset() {
         this.$confirm(

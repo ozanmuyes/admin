@@ -53,6 +53,7 @@
           <el-input-number
             :min="0"
             :max="600"
+            :step="5"
             v-model="selectedQuestion.time_limit"
           ></el-input-number>
         </el-form-item>
@@ -61,6 +62,7 @@
           <el-input-number
             :min="0"
             :max="1000"
+            :step="10"
             v-model="selectedQuestion.score"
           ></el-input-number>
         </el-form-item>
@@ -150,7 +152,6 @@
         //   },
         // ],
         selectedQuestionIndex: -1,
-        // selectedQuestionAnswers: [],
         //
       };
     },
@@ -245,12 +246,10 @@ console.log(newQuestion);
 
           this.selectedQuestion = { ...emptyQuestion };
           this.selectedQuestionIndex = -1;
-          // this.selectedQuestionAnswers = [];
         } else {
           this.selectedQuestion = { ...selectedQuestion };
           this.selectedQuestionIndex = this.questions.findIndex(
             question => (question.text === selectedQuestion.text));
-          // this.selectedQuestionAnswers = selectedQuestion.answers;
         }
       },
     },
@@ -259,7 +258,17 @@ console.log(newQuestion);
         this.selectedQuestionChanged(this.questions[0]);
       }
     },
-    //
+    watch: {
+      // eslint-disable-next-line
+      'questions.length'() {
+console.log(this.questions.length);
+        if (this.questions.length === 0) {
+          // Clear the form
+          this.selectedQuestion = { ...emptyQuestion };
+          this.selectedQuestionIndex = -1;
+        }
+      },
+    },
   };
 </script>
 

@@ -18,6 +18,7 @@
         <!-- <el-table-column prop="is_right" label="Is Right?" :resizable="false"></el-table-column> -->
         <el-table-column label="Is Right?" :resizable="false">
           <template scope="scope">{{ scope.row.is_right }}</template>
+          <!-- <span slot-scope="props">{{ props.is_right }}</span> -->
         </el-table-column>
 
         <el-table-column fixed="right" label="Operations" width="160" :resizable="false">
@@ -64,7 +65,7 @@
           >Update</el-button>
           <el-button
             @click="onAdd"
-            :disabled="disabled"
+            :disabled="disabled || !userCanAddNew"
             plain
             type="success"
           >New</el-button>
@@ -113,6 +114,7 @@
         indexOrderedIds: [
           // e.g. [5,4,7,6] means the question with id of 5 is in the first place
         ],
+        userCanAddNew: true,
         //
       };
     },
@@ -211,8 +213,13 @@
         if (this.answers.length === 0) {
           // Clear the form
           this.selectedAnswer = { ...emptyAnswer };
+          this.selectedAnswerIndex = -1;
 
           this.internalDisable = true;
+          this.userCanAddNew = true;
+        } else {
+          this.internalDisable = false;
+          this.userCanAddNew = (this.answers.length < 4);
         }
       },
     },
