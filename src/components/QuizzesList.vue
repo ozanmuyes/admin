@@ -1,22 +1,27 @@
 <template>
   <div>
-    <el-table :data="users" empty-text="Loading..." stripe border style="width: 100%">
+    <el-table :data="quizzes" empty-text="Loading..." stripe border style="width: 100%">
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="id" label="ID" width="50"></el-table-column>
-      <el-table-column prop="first_name" label="First Name" width="120"></el-table-column>
-      <el-table-column prop="last_name" label="Last Name" width="120"></el-table-column>
-      <el-table-column prop="username" label="Username" width="140"></el-table-column>
-      <el-table-column prop="role" label="Role" width="100"></el-table-column>
-      <el-table-column prop="email" label="E-Mail" :resizable="false"></el-table-column>
+      <el-table-column label="Author ID" width="100">
+        <template scope="scope">
+          <router-link :to="{ name: 'users.view', params: { userId: scope.row.user_id } }">{{ scope.row.user_id }}</router-link>
+        </template>
+      </el-table-column>
+      <el-table-column prop="name" label="Name" width="170"></el-table-column>
+      <!-- <el-table-column prop="description" label="Description" width="140"></el-table-column> -->
+      <el-table-column prop="description" label="Description" :resizable="false"></el-table-column>
+      <!-- <el-table-column prop="role" label="Role" width="100"></el-table-column>
+      <el-table-column prop="email" label="E-Mail" :resizable="false"></el-table-column> -->
 
       <el-table-column fixed="right" label="Operations" width="160" :resizable="false">
         <template slot-scope="scope">
           <el-button type="text" size="small">
-            <router-link :to="{ name: 'users.view', params: { userId: scope.row.id } }">View</router-link>
+            <router-link :to="{ name: 'quizzes.view', params: { quizId: scope.row.id } }">View</router-link>
           </el-button>
 
           <el-button type="text" size="small">
-            <router-link :to="{ name: 'users.edit', params: { userId: scope.row.id } }">Edit</router-link>
+            <router-link :to="{ name: 'quizzes.edit', params: { quizId: scope.row.id } }">Edit</router-link>
           </el-button>
 
           <el-button @click="removeRecord(scope.$index, scope.row)" type="text" size="small" :class="$style.removeRecordBtn">Delete</el-button>
@@ -39,22 +44,16 @@
   /* eslint-disable no-unused-vars */
 
   import {
-    list as listUsers,
-    remove as removeUser,
-  } from 'api/users';
-
-  import {
-    USER_ADDED,
-    USER_UPDATED,
-    USER_REMOVED,
-  } from 'event/types';
+    list as listQuizzes,
+    remove as removeQuiz,
+  } from 'api/quizzes';
 
   export default {
     data() {
       return {
         perPage: 3, // API endpoint pagination limit
         pageNo: -1, // 1-based page number to use on the request to API endpoint
-        users: [],
+        quizzes: [],
         pagination: {
           page_count: -1,
           current_page: -1,
@@ -64,30 +63,6 @@
         },
       };
     },
-    mounted() {
-      this.$bus.on(USER_ADDED, (user) => {
-        this.users.push(user);
-
-        // TODO Re-calculate pagination
-      });
-      this.$bus.on(USER_UPDATED, ({ diffMap, diffValues }) => {});
-      this.$bus.on(USER_REMOVED, (removedUser) => {
-        // Remove the deleted user from the 'data.users' array
-        const removedUserIndex = this.users.findIndex(user => (user.id === removedUser.id));
-
-        if (removedUserIndex > -1) {
-          this.users.splice(removedUserIndex, 1);
-        }
-      });
-    },
-    created() {
-      this.pageNo = 1;
-    },
-    beforeDestroy() {
-      this.$bus.off(USER_ADDED);
-      this.$bus.off(USER_UPDATED);
-      this.$bus.off(USER_REMOVED);
-    },
     methods: {
       paginate(currentPageNo) {
         this.pageNo = currentPageNo;
@@ -95,11 +70,11 @@
       recalculatePaginate() {
         // this.pagination = response.data.pagination;
 
-        if (this.users.length > (this.perPage * this.pagination.page_count)) {
+        if (this.quizzes.length > (this.perPage * this.pagination.page_count)) {
           // TODO User was added, so add new page
 debugger;
           this.pagination.page_count += 1;
-        } else if (this.users.length > (this.perPage * this.pagination.count)) {
+        } else if (this.quizzes.length > (this.perPage * this.pagination.count)) {
           // TODO User was removed, so remove last page
 debugger;
           this.pagination.page_count += 1;
@@ -121,14 +96,13 @@ debugger;
 //                  removeUser(user.id)
 //                     .then((response) => {
 // console.log(response);
-                      const removedUser = this.users[index];
+                      const removedUser = this.quizzes[index];
 
                       // Do NOT remove from the array immediately, instead do it in event callback
-                      // // Remove the deleted user from the 'data.users' array
-                      // this.users.splice(index, 1);
+                      // // Remove the deleted user from the 'data.quizzes' array
+                      // this.quizzes.splice(index, 1);
 
                       // TODO Update the pagination if necessary
-                      this.$bus.emit(USER_REMOVED, removedUser);
 //                     })
 //                     .catch((error) => {
 // console.log(error);
@@ -151,11 +125,14 @@ debugger;
           });
       },
     },
+    created() {
+      this.pageNo = 1;
+    },
     watch: {
       pageNo(value) {
         // `value` is 1-based
 
-        listUsers({
+        listQuizzes({
           deleteExtras: false,
           params: {
             limit: this.perPage,
@@ -163,7 +140,7 @@ debugger;
           },
         })
           .then((response) => {
-            this.users = response.data.data;
+            this.quizzes = response.data.data;
             if (this.pagination.page_count === -1) {
               this.pagination = response.data.pagination;
             }
