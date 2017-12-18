@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="users" empty-text="No Data" stripe  border style="width: 100%">
+    <el-table :data="users" empty-text="Loading..." stripe border style="width: 100%">
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="id" label="ID" width="50"></el-table-column>
       <el-table-column prop="first_name" label="First Name" width="120"></el-table-column>

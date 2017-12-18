@@ -134,7 +134,7 @@
         const tag = params[0];
         params.splice(0, 1);
 
-        return this.$t(`forms.userAdd.${tag}`, ...params);
+        return this.$t(`forms.userAddit.${tag}`, ...params);
       },
       titleCase(text) {
         return titleCaseFilter(text);

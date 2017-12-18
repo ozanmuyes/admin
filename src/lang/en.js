@@ -4,9 +4,11 @@ export default {
   cancel: 'cancel',
   error: 'error',
   update: 'update',
+  name: 'name',
+  text: 'text',
   forms: {
     notValid: 'The form has errors.',
-    userAdd: {
+    userAddit: {
       email: 'e-mail',
       password: 'password',
       role: 'role',
@@ -26,6 +28,21 @@ export default {
       errors: {
         // These are the responses messages from API
       },
+    },
+    quizAdd: {
+      description: 'description',
+      descriptionPlaceholder: 'Introduce the quiz to your audience.',
+      questions: 'questions',
+      //
+    },
+    questionsListAdd: {
+      no_data: 'No Questions',
+      time_limit: 'time limit',
+      score: 'score',
+    },
+    answersListAdd: {
+      no_data: 'No Answers',
+      is_right: 'is right',
     },
     //
   },
