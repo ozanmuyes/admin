@@ -10,9 +10,9 @@
       <el-input v-model="user.email"></el-input>
     </el-form-item>
 
-    <el-form-item v-if="!isEditing" :label="titleCase(t('password'))" prop="password">
+    <!-- <el-form-item v-if="!isEditing" :label="titleCase(t('password'))" prop="password">
       <el-input v-model="user.password" type="password"></el-input>
-    </el-form-item>
+    </el-form-item> -->
 
     <el-form-item :label="titleCase(t('role'))" prop="role">
       <el-select v-model="user.role" :placeholder="t('rolePlaceholder')">
@@ -61,7 +61,7 @@
   const emptyUser = {
     id: -1,
     email: '',
-    password: '',
+    // password: '',
     role: '',
     first_name: '',
     last_name: '',
@@ -100,11 +100,11 @@
             { type: 'email', message: this.t('rules.type', [this.titleCase(this.t('email'))]), trigger: 'blur' },
             { min: 10, max: 100, message: this.t('rules.minmax', [this.titleCase(this.t('email')), 10, 100]), trigger: 'blur' },
           ],
-          password: [
-            { required: true, message: this.t('rules.required', [this.titleCase(this.t('password'))]), trigger: 'blur' },
-            { min: 6, message: this.t('rules.min', [this.titleCase(this.t('password')), 6]), trigger: 'blur' },
-            //
-          ],
+          // password: [
+          //   { required: true, message: this.t('rules.required', [this.titleCase(this.t('password'))]), trigger: 'blur' },
+          //   { min: 6, message: this.t('rules.min', [this.titleCase(this.t('password')), 6]), trigger: 'blur' },
+          //   //
+          // ],
           role: [
             { required: true, message: this.t('rules.required', [this.titleCase(this.t('role'))]), trigger: 'blur' },
             { type: 'enum', enum: ['admin', 'lecturer'], message: this.t('rules.type', [this.titleCase(this.t('role'))]), trigger: 'blur' },
@@ -162,28 +162,28 @@ console.warn('No changes, will do nothing.');
                 const objToSend = {};
                 deep.observableDiff(this.data, this.user, d => deep.applyChange(objToSend, diff, d));
 
-//                editUser(this.data.id, objToSend)
-//                  .then(() => {
-//                    this.$emit('submitted');
+                editUser(this.data.id, objToSend)
+                  .then(() => {
+                    this.$emit('submitted');
                     this.$bus.$emit(USER_UPDATED, { diff, objToSend });
-//                  })
-//                  .catch((error) => {
-//                    this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
-//                  });
+                  })
+                  .catch((error) => {
+                    this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
+                  });
               }
             } else {
               // Adding new user...
 
-//              addUser(this.user)
-//                .then(() => {
-//                  // NOTE User has been added
-//
-//                  this.$emit('submitted');
+              addUser(this.user)
+                .then(() => {
+                  // NOTE User has been added
+
+                  this.$emit('submitted');
                   this.$bus.$emit(USER_ADDED, this.user);
-//                })
-//                .catch((error) => {
-//                  this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
-//                });
+                })
+                .catch((error) => {
+                  this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
+                });
             }
           }
         });
@@ -196,14 +196,14 @@ console.warn('No changes, will do nothing.');
       },
     },
     mounted() {
-      // Wait for the resource data to be arrive.
+      // Wait for the resource data to be arrived.
       // The reason we are not watching the prop
       // ('data' prop) is to not to lose after
       // the data was loaded and user made
       // some changes.
       setTimeout(() => {
         this.user = { ...this.data };
-      }, 100); // The delay for the time out is crucial
+      }, 50); // The delay for the time out is crucial
     },
   };
 </script>

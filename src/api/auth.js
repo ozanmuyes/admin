@@ -38,3 +38,9 @@ export function getUserInfo(userId) {
   // This SHOULD return a Promise (which the caller is going to handle resolve/error)
   return api.get(`/users/${userId}`);
 }
+
+export function setPassword(userId, password) {
+  return api.patch(`/users/${userId}`, {
+    password,
+  });
+}

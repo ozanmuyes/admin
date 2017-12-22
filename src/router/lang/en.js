@@ -49,6 +49,10 @@ const router = {
     },
     //
   },
+  set_password: {
+    title: 'Set Your Password',
+    //
+  },
 };
 
 export default { ...asRoot, router };

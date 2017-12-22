@@ -1,4 +1,5 @@
 import LoginPage from 'pages/Login';
+import SetPasswordPage from 'pages/SetPassword';
 
 import store from 'store';
 import { LOGOUT } from 'store/mutation-types';
@@ -22,6 +23,12 @@ export default [
         next();
       }
     },
+  },
+  {
+    path: '/password',
+    name: 'set_password',
+    component: SetPasswordPage,
+    // no `meta`
   },
   {
     path: '/logout',

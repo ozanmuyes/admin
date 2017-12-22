@@ -10,6 +10,7 @@ export default {
     userAddit: {
       email: 'e-mail',
       password: 'password',
+      're-password': 'password re-enter',
       role: 'role',
       rolePlaceholder: 'Please select a role',
       first_name: 'first name',

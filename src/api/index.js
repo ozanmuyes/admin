@@ -25,12 +25,28 @@ const config = {
 const api = axios.create(config);
 
 // Set Authorization header via a request interceptor,
-//  since the access token might change over time.
+// since the access token might change over time.
 api.interceptors.request.use(
   (requestConfig) => {
-    // eslint-disable-next-line no-param-reassign
+    /* eslint-disable no-param-reassign */
+
+    if (process.env.NODE_ENV === 'development') {
+      if (!requestConfig.params) {
+        requestConfig.params = {};
+      }
+
+      requestConfig.params.XDEBUG_SESSION_START = 'PHPSTORM';
+    }
+
     requestConfig.headers.Authorization = `Bearer ${store.state.user.access_token}`;
+
+    // if req has body
+    if (requestConfig.data && Object.getOwnPropertyNames(requestConfig.data).length > 0) {
+      requestConfig.headers['Content-Type'] = 'application/json; charset=utf-8';
+    }
+
     return requestConfig;
+    /* eslint-enable no-param-reassign */
   },
   error => Promise.reject(error),
 );

@@ -70,7 +70,10 @@
 
         // TODO Re-calculate pagination
       });
-      this.$bus.on(USER_UPDATED, ({ diffMap, diffValues }) => {});
+      this.$bus.on(USER_UPDATED, ({ diffMap, diffValues }) => {
+        // TODO Use `diffMap` to see which of the values have changed, \
+        //          `diffValues` holds the updated values.
+      });
       this.$bus.on(USER_REMOVED, (removedUser) => {
         // Remove the deleted user from the 'data.users' array
         const removedUserIndex = this.users.findIndex(user => (user.id === removedUser.id));
