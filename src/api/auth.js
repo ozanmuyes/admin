@@ -39,8 +39,9 @@ export function getUserInfo(userId) {
   return api.get(`/users/${userId}`);
 }
 
-export function setPassword(userId, password) {
+export function setPassword(userId, password, token) {
   return api.patch(`/users/${userId}`, {
     password,
+    password_reset_token: token,
   });
 }

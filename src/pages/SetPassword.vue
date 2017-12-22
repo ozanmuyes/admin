@@ -31,7 +31,7 @@
     },
     methods: {
       doUpdate(password) {
-        setPassword(this.userId, password);
+        setPassword(this.userId, password, this.token);
       },
     },
     mounted() {
