@@ -51,3 +51,13 @@
 <style lang="scss">
   @import './styles/index.scss';
 </style>
+
+<!-- FIXME Where does these styles live? -->
+<style>
+  .el-form--inline .el-form-item__label {
+    margin-right: 10px;
+  }
+  .el-form--inline .el-form-item__content {
+    margin-right: 6px;
+  }
+</style>

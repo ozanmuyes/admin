@@ -51,6 +51,7 @@
 
         <el-form-item :label="titleCase(t('time_limit'))">
           <el-input-number
+            :disabled="isUpdateBtnDisabled && isNewBtnDisabled"
             :min="0"
             :max="600"
             :step="5"
@@ -60,6 +61,7 @@
 
         <el-form-item :label="titleCase(t('score'))">
           <el-input-number
+            :disabled="isUpdateBtnDisabled && isNewBtnDisabled"
             :min="0"
             :max="1000"
             :step="10"
@@ -87,6 +89,7 @@
       <answers-list-add-form
         :answers="selectedQuestionAnswers"
         :disabled="isAnswersComponentDisabled"
+        ref="answersListAddForm"
       ></answers-list-add-form>
     </el-form-item>
   </div>
@@ -183,6 +186,11 @@
       titleCase(text) {
         return titleCaseFilter(text);
       },
+      resetForm() {
+        this.$refs.form.resetFields();
+
+        this.$refs.answersListAddForm.resetForm();
+      },
       onUpdate() {
         // FIXME [DNTMTTPRSDT]: Do NOT directly mutate the parent's data
         const updatingQuestion = this.questions[this.selectedQuestionIndex];
@@ -203,8 +211,6 @@
           score: this.selectedQuestion.score,
           answers: [],
         };
-console.log(newQuestion);
-// debugger;
 
         // Add to component's related array
         // FIXME [DNTMTTPRSDT]
@@ -261,7 +267,6 @@ console.log(newQuestion);
     watch: {
       // eslint-disable-next-line
       'questions.length'() {
-console.log(this.questions.length);
         if (this.questions.length === 0) {
           // Clear the form
           this.selectedQuestion = { ...emptyQuestion };

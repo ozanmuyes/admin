@@ -7,6 +7,10 @@ export default {
   name: 'name',
   forms: {
     notValid: 'The form has errors.',
+    rules: {
+      // common translations for common rules
+      required: '{0} is required.',
+    },
     userAddit: {
       email: 'e-mail',
       password: 'password',
@@ -33,6 +37,9 @@ export default {
       description: 'description',
       descriptionPlaceholder: 'Introduce the quiz to your audience.',
       questions: 'questions',
+      rules: {
+        //
+      },
       //
     },
     questionsListAdd: {

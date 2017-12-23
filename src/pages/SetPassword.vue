@@ -31,7 +31,15 @@
     },
     methods: {
       doUpdate(password) {
-        setPassword(this.userId, password, this.token);
+        setPassword(this.userId, password, this.token)
+          .then((response) => { // eslint-disable-line
+debugger;
+            this.$router.push({ name: 'login' });
+          })
+          .catch((error) => { // eslint-disable-line
+debugger;
+            //
+          });
       },
     },
     mounted() {

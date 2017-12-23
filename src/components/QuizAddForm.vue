@@ -6,21 +6,24 @@
     :rules="rules"
     size="small"
   >
-    <el-form-item :label="titleCase($t('name'))">
+    <el-form-item :label="titleCase($t('name'))" prop="name">
       <el-input v-model="theQuiz.name"></el-input>
     </el-form-item>
 
-    <el-form-item :label="titleCase(t('description'))">
+    <el-form-item :label="titleCase(ct('description'))" prop="description">
       <el-input
-        :placeholder="t('descriptionPlaceholder')"
+        :placeholder="ct('descriptionPlaceholder')"
         :rows="2"
         type="textarea"
         v-model="theQuiz.description"
       ></el-input>
     </el-form-item>
 
-    <el-form-item :label="titleCase(t('questions'))">
-      <question-list-add-form :questions="theQuiz.questions"></question-list-add-form>
+    <el-form-item :label="titleCase(ct('questions'))">
+      <question-list-add-form
+        ref="questionListAddForm"
+        :questions="theQuiz.questions"
+      ></question-list-add-form>
     </el-form-item>
 
     <el-form-item>
@@ -29,8 +32,9 @@
         <el-button type="primary" @click="onSubmit">{{ titleCase($t(saveButtonText)) }}</el-button>
       </el-tooltip>
 
-      <!-- TODO <el-tooltip class="item" effect="dark" content="Top Left prompts info" placement="top-start"> -->
-      <el-button type="danger" plain @click="onReset">{{ titleCase($t(resetButtonText)) }}</el-button>
+      <el-tooltip class="item" effect="dark" content="Reset form. This can not be undone." placement="top-start">
+        <el-button type="danger" plain @click="onReset">{{ titleCase($t(resetButtonText)) }}</el-button>
+      </el-tooltip>
     </el-form-item>
   </el-form>
 </template>
@@ -72,13 +76,19 @@
       return {
         theQuiz: emptyQuiz,
         rules: {
-          // TODO
+          name: [
+            { required: true, message: this.$t('forms.rules.required', [this.titleCase(this.$t('name'))]), trigger: 'blur' },
+          ],
+          description: [
+            //
+          ],
         },
         //
       };
     },
     methods: {
-      t(...params) {
+      // Component Translate
+      ct(...params) {
         const tag = params[0];
         params.splice(0, 1);
 
@@ -89,22 +99,27 @@
       },
       resetForm() {
         this.$refs.form.resetFields();
-        this.user = { ...emptyQuiz };
+        this.theQuiz = { ...emptyQuiz };
+        this.theQuiz.questions = [];
+
+        this.$refs.questionListAddForm.resetForm(); // TODO Test here
       },
       onSubmit() {
-        // NOTE this.$refs.form.validate((isValid) => {
+        this.$refs.form.validate((isValid) => {
+          if (isValid) {
+            // TODO Check if the quiz has any question and \
+            //      that question has any answer. If not \
+            //      do NOT continue.
 
-        // TODO THE BIG ONE
-        addQuiz(this.theQuiz)
-          .then((response) => {
-            //
-console.log(response, this.theQuiz);
-// debugger;
-            this.$emit('quizAdded');
-          })
-          .catch((error) => { // eslint-disable-line
-            // TODO
-          });
+            addQuiz(this.theQuiz)
+              .then((response) => {
+                this.$emit('quizAdded', response);
+              })
+              .catch((error) => {
+                this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate [TRNSRRRMSG]
+              });
+          }
+        });
       },
       onReset() {
         this.$confirm(
@@ -119,7 +134,6 @@ console.log(response, this.theQuiz);
         )
           .then((response) => {
             if (response === 'confirm') {
-              // TODO Test here
               this.resetForm();
             }
           })

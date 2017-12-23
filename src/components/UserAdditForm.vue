@@ -182,7 +182,7 @@ console.warn('No changes, will do nothing.');
                   this.$bus.$emit(USER_ADDED, this.user);
                 })
                 .catch((error) => {
-                  this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate
+                  this.$alert(error.response.data.message, 'Error', { type: 'error' }); // TODO translate [TRNSRRRMSG]
                 });
             }
           }

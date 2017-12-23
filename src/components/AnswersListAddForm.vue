@@ -12,13 +12,9 @@
       >
         <!-- TODO Translate -->
         <el-table-column type="index" width="50"></el-table-column>
-        <!-- <el-table-column prop="id" label="ID" width="50"></el-table-column> -->
         <el-table-column prop="text" label="Text" width="260"></el-table-column>
-        <!-- FIXME 'is_right' won't render -->
-        <!-- <el-table-column prop="is_right" label="Is Right?" :resizable="false"></el-table-column> -->
         <el-table-column label="Is Right?" :resizable="false">
-          <template scope="scope">{{ scope.row.is_right }}</template>
-          <!-- <span slot-scope="props">{{ props.is_right }}</span> -->
+          <span slot-scope="props">{{ props.row.is_right ? 'Yes' : 'No' }}</span>
         </el-table-column>
 
         <el-table-column fixed="right" label="Operations" width="160" :resizable="false">
@@ -50,11 +46,17 @@
         size="small"
       >
         <el-form-item :label="titleCase(t('text'))">
-          <el-input :disabled="disabled" v-model="selectedAnswer.text"></el-input>
+          <el-input
+            :disabled="disabled"
+            v-model="selectedAnswer.text"
+          ></el-input>
         </el-form-item>
 
         <el-form-item :label="`${titleCase(t('is_right'))}?`">
-          <el-switch :disabled="disabled" v-model="selectedAnswer.is_right"></el-switch>
+          <el-switch
+            :disabled="disabled"
+            v-model="selectedAnswer.is_right"
+          ></el-switch>
         </el-form-item>
 
         <el-form-item>
@@ -136,6 +138,9 @@
       titleCase(text) {
         return titleCaseFilter(text);
       },
+      resetForm() {
+        this.$refs.form.resetFields();
+      },
       onUpdate() {
         // FIXME [DNTMTTPRSDT]: Do NOT directly mutate the parent's data
         const updatingAnswer = this.answers[this.selectedAnswerIndex];
@@ -216,10 +221,10 @@
           this.selectedAnswerIndex = -1;
 
           this.internalDisable = true;
-          this.userCanAddNew = true;
+          this.userCanAddNew = (this.selectedAnswer.text.length > 0);
         } else {
           this.internalDisable = false;
-          this.userCanAddNew = (this.answers.length < 4);
+          this.userCanAddNew = (this.answers.length < 4 && this.selectedAnswer.text.length > 0);
         }
       },
     },

@@ -3,6 +3,8 @@ import vocaCamelCase from 'voca/camel_case';
 import vocaCapitalize from 'voca/capitalize';
 //
 
+export const stringify = value => JSON.stringify(value);
+
 export const titleCase = value => vocaTitleCase(value);
 export const camelCase = value => vocaCamelCase(value);
 export const capitalize = value => vocaCapitalize(value);

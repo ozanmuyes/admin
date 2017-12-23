@@ -23,8 +23,13 @@
       QuizAddForm,
     },
     methods: {
-      quizAdded() {
-console.log('routing to \'users.index\'...');
+      quizAdded(quizId) {
+        this.$message({
+          type: 'success',
+          dangerouslyUseHTMLString: true,
+          message: `Quiz created successfully.<br>You can see the new quiz <a href="/me/quizzes/${quizId}">here</a>.`,
+        });
+
         // this.$router.push({ name: 'quizzes.index' });
       },
     },

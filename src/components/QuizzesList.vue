@@ -4,27 +4,24 @@
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="id" label="ID" width="50"></el-table-column>
       <el-table-column label="Author ID" width="100">
-        <template scope="scope">
-          <router-link :to="{ name: 'users.view', params: { userId: scope.row.user_id } }">{{ scope.row.user_id }}</router-link>
+        <template slot-scope="props">
+          <router-link :to="{ name: 'users.view', params: { userId: props.row.user_id } }">{{ props.row.user_id }}</router-link>
         </template>
       </el-table-column>
       <el-table-column prop="name" label="Name" width="170"></el-table-column>
-      <!-- <el-table-column prop="description" label="Description" width="140"></el-table-column> -->
       <el-table-column prop="description" label="Description" :resizable="false"></el-table-column>
-      <!-- <el-table-column prop="role" label="Role" width="100"></el-table-column>
-      <el-table-column prop="email" label="E-Mail" :resizable="false"></el-table-column> -->
 
       <el-table-column fixed="right" label="Operations" width="160" :resizable="false">
-        <template slot-scope="scope">
-          <el-button type="text" size="small">
-            <router-link :to="{ name: 'quizzes.view', params: { quizId: scope.row.id } }">View</router-link>
-          </el-button>
+        <template slot-scope="props">
+            <el-button type="text" size="small">
+              <router-link :to="{ name: 'quizzes.view', params: { quizId: props.row.id } }">View</router-link>
+            </el-button>
 
-          <el-button type="text" size="small">
-            <router-link :to="{ name: 'quizzes.edit', params: { quizId: scope.row.id } }">Edit</router-link>
-          </el-button>
+            <el-button type="text" size="small">
+              <router-link :to="{ name: 'quizzes.edit', params: { quizId: props.row.id } }">Edit</router-link>
+            </el-button>
 
-          <el-button @click="removeRecord(scope.$index, scope.row)" type="text" size="small" :class="$style.removeRecordBtn">Delete</el-button>
+            <el-button @click="removeRecord(props.$index, props.row)" type="text" size="small" :class="$style.removeRecordBtn">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -80,39 +77,39 @@ debugger;
           this.pagination.page_count += 1;
         }
       },
-      removeRecord(index, user) {
-        this.$confirm(`Are you sure to delete the user with username '${user.username}'?`, 'Delete User', {
+      removeRecord(index, quiz) {
+        this.$confirm(`Are you sure to delete the quiz with name '${quiz.name}'?`, 'Delete Quiz', {
           confirmButtonText: 'Yes',
           cancelButtonText: 'No',
           type: 'warning',
         })
           .then(() => {
-            this.$prompt('Please enter the username below to delete the user.', 'Delete User', {
+            this.$prompt('Please enter the quiz name below to delete the quiz.', 'Delete Quiz', {
               confirmButtonText: 'Delete',
               confirmButtonClass: 'el-button--danger',
             })
               .then((result) => {
-                if (result.value === user.username) {
-//                  removeUser(user.id)
+                if (result.value === quiz.name) {
+//                  removeUser(quiz.id)
 //                     .then((response) => {
 // console.log(response);
                       const removedUser = this.quizzes[index];
 
                       // Do NOT remove from the array immediately, instead do it in event callback
-                      // // Remove the deleted user from the 'data.quizzes' array
+                      // // Remove the deleted quiz from the 'data.quizzes' array
                       // this.quizzes.splice(index, 1);
 
                       // TODO Update the pagination if necessary
 //                     })
 //                     .catch((error) => {
 // console.log(error);
-//                       // If any error occurred do NOT delete the user from the 'data'
+//                       // If any error occurred do NOT delete the quiz from the 'data'
 //                       // and inform the admin that the operation failed
 //                     });
                 } else {
                   this.$message({
                     type: 'error',
-                    message: 'Username entry mismatch. Will not delete the user.',
+                    message: 'Quiz name entry mismatch. Will not delete the quiz.',
                   });
                 }
               })
