@@ -38,6 +38,8 @@ export default [
       index: 5169, // possibly the biggest number in sidebar index
     },
     beforeEnter: (to, from, next) => {
+      // TODO Show confirmation
+
       if (store.getters.isLoggedIn) {
         store.commit(LOGOUT);
 

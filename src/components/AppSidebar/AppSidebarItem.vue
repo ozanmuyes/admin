@@ -19,10 +19,10 @@
           :key="item.name"
         >
           <template slot="title">
-            Y
+            <!-- Y -->
             <!-- <svg-icon v-if="item.meta.icon" :icon-class="item.meta.icon"></svg-icon> -->
             <i v-if="item.meta.icon" :class="item.meta.icon"></i>
-            <span v-if="item.meta.title">{{ generateTitle(item.meta.title) }}</span>
+            <span v-if="item.meta.title">{{ generateTitle(item.meta.title, true) }}</span>
           </template>
 
           <template v-for="child in item.children">
@@ -37,7 +37,7 @@
                 :key="child.name"
                 :to="normalizePath(item.path, child.path)"
               >
-                ZZ
+                <!-- ZZ -->
                 <!-- <svg-icon v-if="child.icon" :icon-class="child.icon"></svg-icon> -->
                 <i v-if="child.icon" :class="child.icon"></i>
                 <span v-if="child.meta.title">{{ generateTitle(`${item.meta.title}.${child.meta.title}`) }}</span>
@@ -54,7 +54,7 @@
             :key="item.name"
             :to="item.path"
           >
-            X
+            <!-- X -->
             <!-- <svg-icon v-if="item.meta.icon" :icon-class="item.meta.icon"></svg-icon> -->
             <i v-if="item.meta.icon" :class="item.meta.icon"></i>
             <span v-if="item.meta.title">{{ generateTitle(item.meta.title) }}</span>
@@ -89,11 +89,11 @@
       },
     },
     methods: {
-      generateTitle(title) {
-        return title; // bypass l10n for now
+      generateTitle(title, isAlsoItsRoot = false) {
+        // return title; // bypass l10n for now
 
         // TODO If title has '*' for a path (e.g. 'foo.*.bar') search in children
-        // return this.$t(`route.${title}`);
+        return this.$t(`router.${title}${isAlsoItsRoot ? '._' : ''}`);
       },
       normalizePath(itemPath, childPath) {
         if (

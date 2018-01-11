@@ -1,12 +1,12 @@
 import VueI18n from 'vue-i18n';
 
-import routerEn from 'router/lang/en';
+// import routerEn from 'router/lang/en'; // [MVLNGSTGHR]
 //
 
 import en from '@/lang/en';
-import de from '@/lang/de';
-import tr from '@/lang/tr';
-
+// import de from '@/lang/de'; // [PSSTHOTHRSFRNW]: pass the others for now
+// import tr from '@/lang/tr'; // [PSSTHOTHRSFRNW]
+debugger;
 export const name = 'i18n';
 export const priority = 500;
 
@@ -14,10 +14,15 @@ function initialize({ Vue }) {
   Vue.use(VueI18n);
 
   const messages = {
+    en, // [PSSTHOTHRSFRNW]
+    /*
+     * [PSSTHOTHRSFRNW]
     en: {
       ...en,
-      ...routerEn,
-    },
+      // ...routerEn, // [MVLNGSTGHR]
+    }, */
+    /*
+    * [PSSTHOTHRSFRNW]
     de: {
       ...de,
       // route: routerDe,
@@ -25,7 +30,7 @@ function initialize({ Vue }) {
     tr: {
       ...tr,
       // route: routerTr,
-    },
+    }, */
   };
 
   const i18n = new VueI18n({

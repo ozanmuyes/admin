@@ -116,7 +116,7 @@ export default {
           name: 'users.add',
           component: AdminUsersAdd,
           meta: {
-            title: 'add',
+            title: 'new',
           },
         },
         {

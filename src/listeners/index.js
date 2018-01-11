@@ -9,7 +9,7 @@ export default function initializeListeners() {
     req.keys().forEach((key) => {
       if (!key.startsWith('./_')) {
         currReq = req(key);
-
+// debugger;
         if (currReq.default) {
           // NOTE Default export of a listener MUST be the inizitialize method
           if (typeof currReq.default !== 'function') {

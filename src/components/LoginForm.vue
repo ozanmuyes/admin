@@ -61,7 +61,7 @@
     props: {
       langPrefix: {
         type: String,
-        default: 'router.',
+        default: 'forms.',
       },
     },
     data() {
@@ -109,6 +109,7 @@
         this.$refs.form.resetFields();
       },
       onError({ message, title }) {
+        // FIXME Uncaught cancel
         this.$alert(message, title, {
           type: 'error',
           // See http://element.eleme.io/#/en-US/component/message-box#options

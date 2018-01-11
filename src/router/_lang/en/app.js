@@ -1,20 +1,4 @@
-/**
- * Export these key/value pairs to them to be
- * injected to language entry's root. That
- * is the entries of the `asRoot` are un-
- * related with any route directly.
- * Please note the they can be overriden by
- * other router language files. Also they
- * may override final language entry.
- */
-const asRoot = {
-  'N/A': 'N/A',
-  dashboard: 'Dashboard',
-};
-
-// TODO 'const router = {' and 'login' & 'admin'... in it.
-// Namespace the language exports
-const router = {
+export default {
   login: {
     title: 'Login',
     email: {
@@ -54,5 +38,3 @@ const router = {
     //
   },
 };
-
-export default { ...asRoot, router };
