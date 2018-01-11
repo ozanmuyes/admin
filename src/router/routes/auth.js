@@ -1,4 +1,5 @@
 import LoginPage from 'pages/Login';
+// import LogoutPage from 'pages/Logout';
 import SetPasswordPage from 'pages/SetPassword';
 
 import store from 'store';
@@ -36,9 +37,24 @@ export default [
     meta: {
       title: 'logout',
       index: 5169, // possibly the biggest number in sidebar index
+      icon: 'fa fa-fw fa-sign-out',
     },
     beforeEnter: (to, from, next) => {
-      // TODO Show confirmation
+      // FIXME Show confirm box
+// console.log(this);
+// debugger;
+//       this.$confirm('Are you sure you want to log out?', 'Logout?', {
+//         type: 'warning',
+//         confirmButtonText: 'Yes',
+//         confirmButtonClass: 'el-button--danger',
+//         cancelButtonText: 'No',
+//       })
+//       .then((/* response */) => {
+//         //
+//       })
+//       .catch((err) => {
+//         //
+//       });
 
       if (store.getters.isLoggedIn) {
         store.commit(LOGOUT);
@@ -51,4 +67,21 @@ export default [
       }
     },
   },
+  // {
+  //   path: '/logout',
+  //   name: 'logout',
+  //   component: LogoutPage,
+  //   meta: {
+  //     title: 'logout',
+  //     index: 5169, // possibly the biggest number in sidebar index
+  //     icon: 'fa fa-fw fa-sign-out',
+  //   },
+  //   beforeEnter(to, from, next) {
+  //     if (!store.getters.isLoggedIn) {
+  //       next({ name: 'Login' });
+  //     } else {
+  //       next();
+  //     }
+  //   },
+  // },
 ];

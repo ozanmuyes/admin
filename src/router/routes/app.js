@@ -55,7 +55,8 @@ export default {
       meta: {
         title: 'quizzes',
         // TODO What if there is no 'subtitle'?
-        subtitle: 'gesi bağları',
+        subtitle: 'quizzes_subtitle?',
+        icon: 'fa fa-fw fa-list-alt',
       },
       children: [
         {
@@ -101,6 +102,7 @@ export default {
       meta: {
         title: 'users',
         subtitle: 'list',
+        icon: 'fa fa-fw fa-users',
       },
       children: [
         {

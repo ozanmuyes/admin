@@ -13,7 +13,7 @@ let children = {};
 let currReq = null;
 req.keys().forEach((key) => {
   currReq = req(key);
-debugger;
+// debugger;
   if (currReq.default && typeof currReq.default === 'object' && !Array.isArray(currReq.default)) {
     /*
      * [NTSLTMRG]: not slot (add new object key) merge

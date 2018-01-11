@@ -6,14 +6,14 @@ const req = require.context('./', false, /^(?!.*index).*\.js$/);
 let currReq = null;
 // const arr = [];
 let arr = {}; // eslint-disable-line
-debugger;
+// debugger;
 
 // // i.e.
 // // router = { /* from ./router/ */ }
 // let featuresLangs = {}; // eslint-disable-line
 // featuresLangs = req.keys().forEach((key) => {
 req.keys().forEach((key) => {
-debugger;
+// debugger;
   if (!key.startsWith('./_')) {
     if (key.endsWith('.js')) {
       currReq = req(key);

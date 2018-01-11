@@ -6,7 +6,7 @@ import VueI18n from 'vue-i18n';
 import en from '@/lang/en';
 // import de from '@/lang/de'; // [PSSTHOTHRSFRNW]: pass the others for now
 // import tr from '@/lang/tr'; // [PSSTHOTHRSFRNW]
-debugger;
+
 export const name = 'i18n';
 export const priority = 500;
 
