@@ -1,9 +1,11 @@
+<!-- TODO Copy from 'pages/Admin/Quizzes/View.vue' -->
+
 <template>
   <div>
     <div v-if="loading">Loading...</div>
 
     <div v-else>
-      <span>view user: {{ user.id }}</span>
+      <span>view user: {{ entity.id }}</span>
 
       <br>
       <router-link :to="{ name: 'users.edit' }">Edit</router-link>
@@ -15,16 +17,27 @@
 
 <script>
   export default {
-    props: {
-      user: {
-        type: Object,
-        required: true,
-      },
+    // props: {
+    //   user: {
+    //     type: Object,
+    //     required: true,
+    //   },
+    // },
+    data() {
+      return {
+        entity: {
+          id: -1,
+          // TODO Copy user keys from store
+        },
+      };
     },
     computed: {
       loading() {
-        return (this.user.id === -1);
+        return (this.entity.id === -1);
       },
+    },
+    created() {
+      // TODO use 'api' to populate `entity`
     },
   };
 </script>

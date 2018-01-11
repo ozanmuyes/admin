@@ -120,9 +120,10 @@ debugger;
               confirmButtonClass: 'el-button--danger',
             })
               .then((result) => {
+                // If confirm box returned a valid value
                 if (result.value === user.username) {
-//                  removeUser(user.id)
-//                     .then((response) => {
+                 removeUser(user.id)
+                    .then((response) => {
 // console.log(response);
                       const removedUser = this.users[index];
 
@@ -132,12 +133,12 @@ debugger;
 
                       // TODO Update the pagination if necessary
                       this.$bus.emit(USER_REMOVED, removedUser);
-//                     })
-//                     .catch((error) => {
-// console.log(error);
-//                       // If any error occurred do NOT delete the user from the 'data'
-//                       // and inform the admin that the operation failed
-//                     });
+                    })
+                    .catch((error) => {
+console.log(error);
+                      // If any error occurred do NOT delete the user from the 'data'
+                      // and inform the admin that the operation failed
+                    });
                 } else {
                   this.$message({
                     type: 'error',
