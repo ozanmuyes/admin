@@ -3,6 +3,7 @@ Add media queries to 'index.html' which changes '#app:before.content', i.e.
 ```css
 #app:before {
   display: none;
+  content: "unsupported"; /* Unsupported screen resolution */
 }
 @media only screen and (min-width: 320px) {
   #app:before {

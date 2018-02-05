@@ -91,16 +91,16 @@ api.interceptors.response.use(
     }
 
     const payloadData = { ...response.data.data };
-//     delete response.data.data;
-//     const payload = { ...response.data };
-//     delete response.data;
-//     // the `response` from Axios. it left with `config`, `headers` etc. now
-// // debugger;
-//     // Reversed order // ~[DNTNSTSBLNG]
-//     payload.axios = response;
-//     payloadData.response = payload;
-//     // TODO Make this proxy so when assigned to another object return only the properties \
-//     //      except 'response' and 'axios'. This is useful for [API_call].then((foo) => {bar = foo;})
+    // delete response.data.data;
+    // const payload = { ...response.data };
+    // delete response.data;
+    // // the `response` from Axios. it left with `config`, `headers` etc. now
+    // debugger;
+    // // Reversed order // ~[DNTNSTSBLNG]
+    // payload.axios = response;
+    // payloadData.response = payload;
+    // // TODO Make this proxy so when assigned to another object return only the properties \
+    // //      except 'response' and 'axios'. This is useful for [API_call].then((foo) => {bar = foo;})
     return payloadData;
 
     // return { // ~[DNTNSTSBLNG]: do not nest, use sibling

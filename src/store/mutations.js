@@ -18,7 +18,7 @@ export default {
     state.user.access_token = access_token;
   },
   [types.LOGOUT](state) {
-    state.user = emptyState.user;
+    state.user = emptyState.user; // FIXME Get empty object - NOT a reference to it
   },
 
   // app
