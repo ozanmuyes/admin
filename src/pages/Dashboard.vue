@@ -1,20 +1,41 @@
 <template>
   <div>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <!-- <span>Card name</span> -->
-        <h1>Users</h1>
-        <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>
-      </div>
-      <div v-for="o in 4" :key="o" class="text item">
-        {{'List item ' + o }}
-      </div>
-    </el-card>
+    <el-row>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <h1>Socket</h1>
+          </div>
+
+          <socket-commander></socket-commander>
+        </el-card>
+      </el-col>
+
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <!-- <span>Card name</span> -->
+            <h1>Users</h1>
+            <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>
+          </div>
+
+          <div v-for="o in 4" :key="o" class="text item">
+            {{'List item ' + o }}
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
+  import SocketCommander from 'components/SocketCommander';
+
   export default {
+    components: {
+      SocketCommander,
+      //
+    },
     //
   };
 </script>

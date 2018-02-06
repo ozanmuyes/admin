@@ -29,11 +29,11 @@ async function tryToLogUserIn({ email, password }) {
     });
 
     userId = tokens.user_id;
-  } catch (error) {
+  } catch (error2) {
     return Promise.reject({
       title: 'Login Error',
       message: 'E-mail and password doesn\'t match.',
-      error,
+      error2,
     });
   }
 
