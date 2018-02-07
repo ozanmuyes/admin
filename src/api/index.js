@@ -51,64 +51,86 @@ api.interceptors.request.use(
   error => Promise.reject(error),
 );
 
+// TODO Extract this to its own file and use this import path
+//      wherever importing this module just for this method.
+export function onConnectionErrored(error, callback) { // TODO Change its name
+  const originalRequest = error.config;
+
+  return new Promise((resolve, reject) => {
+    // NOTE Catch generic (axios-related) errors here
+    if (error.message) {
+      // TODO Check here if its working
+      switch (error.message) {
+        case 'Network Error': {
+          reject(new Error('Network Error', (error.stack || [])));
+          return;
+        }
+
+        default:
+          // NOTE See below - nothing to do here
+          // reject(error); // [GNRCRRR]
+          // return;
+      }
+    }
+
+    if (
+      (error.response && error.response.status) ||
+      (typeof error === 'object' && !Array.isArray(error) && error.isSynthetic === true)
+    ) { // TODO Add synthetic HTTP status errors
+      switch (error.response.status) {
+        case 403: {
+          // TODO Maybe check for `data` and subsequent keys existence
+          if (error.response.data.error.code === '13') {
+            // Get anew access_token via refresh_token
+            api.patch('/token', {
+              access_token: store.state.user.access_token,
+              refresh_token: store.state.user.refresh_token,
+            })
+              .then((refreshResponse) => {
+                // Store the new access_token in to the store
+                store.commit(UPDATE_ACCESS_TOKEN, { access_token: refreshResponse.access_token });
+
+                if (error.isSynthetic) {
+                  if (typeof callback === 'function') {
+                    // TODO Call the `callback`
+                    callback(refreshResponse.access_token); // TODO TEST [WSMSTRFRSHTKNNDRTRYLGN-1]: web socket must refresh the token and retry login
+                  } else {
+                    // TODO Maybe emit a timed event on bus (i.e. ACCESS_TOKEN_REFRESHED)
+                  }
+
+                  resolve(); // TODO Find out if passing smth is necessary
+                } else {
+                  // Replay the last request
+                  originalRequest.headers.Authorization = `Bearer ${refreshResponse.access_token}`;
+                  resolve(api(originalRequest));
+                }
+              })
+              // TODO Error occured while refreshing the token - what to do?
+              .catch(errorRefresh => reject(errorRefresh));
+          }
+
+          // NOTE Check other HTTP status codes here (e.g. 401, 404)
+
+          break;
+        }
+
+        default:
+          // NOTE Unhandled HTTP status code
+          reject(error); // [GNRCRRR]: generic error
+      }
+    } else {
+      reject(error); // [GNRCRRR]
+    }
+  });
+}
+
 // Check if there is an error related with token
 // See https://gist.github.com/Culttm/a8c3ca85032c4b0cc67037425f150c44
 // FIXME Big time!!! handle connectivity errors, server-sent errors etc. \
 //       e.g. if the server is not running handle connection error
 api.interceptors.response.use(
   response => response, // Since there is no error
-  (error) => {
-    const originalRequest = error.config;
-
-    return new Promise((resolve, reject) => {
-      // NOTE Catch generic (axios-related) errors here
-      if (error.message) {
-        // TODO Check here if its working
-        switch (error.message) {
-          case 'Network Error': {
-            reject(new Error('Network Error', (error.stack || [])));
-            break;
-          }
-
-          default:
-            reject(error); // [GNRCRRR]
-        }
-      } else if (error.response && error.response.status) {
-        switch (error.response.status) {
-          case 403: {
-            // TODO Maybe check for `data` and subsequent keys existence
-            if (error.response.data.error.code === '13') {
-              // Get anew access_token via refresh_token
-              api.patch('/token', {
-                access_token: store.state.user.access_token,
-                refresh_token: store.state.user.refresh_token,
-              })
-                .then((refreshResponse) => {
-                  // Store the new access_token in to the store
-                  store.commit(UPDATE_ACCESS_TOKEN, { access_token: refreshResponse.access_token });
-
-                  // Replay the last request
-                  originalRequest.headers.Authorization = `Bearer ${refreshResponse.access_token}`;
-                  resolve(api(originalRequest));
-                })
-                // TODO Error occured while refreshing the token - what to do?
-                .catch(errorRefresh => reject(errorRefresh));
-            }
-
-            // NOTE Check other HTTP status codes here (e.g. 401, 404)
-
-            break;
-          }
-
-          default:
-            // NOTE Unhandled HTTP status code
-            reject(error); // [GNRCRRR]: generic error
-        }
-      } else {
-        reject(error); // [GNRCRRR]
-      }
-    });
-  },
+  error => onConnectionErrored.call(this, error),
 );
 
 // Get the payload from the response

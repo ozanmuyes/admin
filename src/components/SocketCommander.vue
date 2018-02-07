@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form
-      v-if="!isConnected"
+      v-if="!isConnected || !isLoggedIn"
       label-width="120px"
       :model="connectionForm"
       ref="connectionForm"
@@ -70,6 +70,7 @@
 <script>
   import io from 'socket.io-client';
 
+  import { onConnectionErrored } from 'api';
   import store from 'store';
 
   export default {
@@ -122,22 +123,53 @@
           this.isConnected = true;
 
           setTimeout((thisComponent) => {
+            /* eslint-disable no-param-reassign */
             // TODO Login via user credentials ('access_token' in this app)
             const access_token = store.state.user.access_token; // eslint-disable-line camelcase
-
+// debugger;
             thisComponent.socket.emit('login', { access_token }, (response) => {
+debugger;
               if (response) {
-                this.isLoggedIn = true;
+                if (response === true) {
+                  thisComponent.isLoggedIn = true;
+                  //
+                } else if (response.name && response.message) {
+                  // If it's an error
+// debugger;
+                  thisComponent.isLoggedIn = false;
+                  //
 
-                //
+                  // TODO Refresh the access token
+                  onConnectionErrored({
+                    // Synthetic error object
+                    isSynthetic: true,
+                    response: {
+                      status: 403,
+                      data: {
+                        error: {
+                          code: '13',
+                          //
+                        },
+                        //
+                      },
+                      //
+                    },
+                    //
+                  }, (newAccessToken) => { // TODO [WSMSTRFRSHTKNNDRTRYLGN-2]
+console.log(`Got new access token: '${newAccessToken}'`);
+                    // TODO Send login event again with new access token
+                  });
+                }
               } else {
-                this.isLoggedIn = false;
+                // No return, nothing has changed
+                thisComponent.isLoggedIn = false;
 
                 //
               }
             });
 
             //
+            /* eslint-enable no-param-reassign */
           }, 100, this);
         });
 
@@ -150,9 +182,11 @@
           //
         });
 
-        this.socket.on('pong', (pong) => {
-          this.commandForm.response = pong;
-        });
+//         this.socket.on('pong', (pong) => {
+//           // FIXME This callback fires time to time
+// debugger;
+//           this.commandForm.response = pong;
+//         });
 
         this.socket.on('message', ({ user, message }) => {
           console.log(`MESSAGE | USER#${user.id} ('${user.name}'): ${message}`);
@@ -186,6 +220,8 @@
             responseStr = JSON.parse(response);
           }
 
+// console.log(`Response to command '${command}' (${args.length === 0 ? 'without ' : 'with '} arguments):\n'${responseStr}'`);
+// console.log(`\`response\` setting to: '${responseStr}'`);
           this.commandForm.response = responseStr;
         });
       },

@@ -52,6 +52,17 @@ const facade = {
       EventBus.$emit(...params);
     }, delay);
   },
+  emitTimeout(timeout, ...params) { // TODO See `emitAsync` method
+    if (typeof timeout !== 'number') {
+      console.log('WARNING | EventBus: First (timeout) parameter MUST be number. Emitting without timeout...');
+
+      EventBus.$emit(...params);
+    } else {
+      setTimeout(() => {
+        EventBus.$emit(...params);
+      }, timeout);
+    }
+  },
   //
 };
 
