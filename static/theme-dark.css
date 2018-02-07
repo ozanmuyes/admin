@@ -1,0 +1,12 @@
+body {
+  background-color: #3c3e3e;
+}
+
+.el-menu.navbar {
+  background-color: #313131 !important;
+}
+
+.el-card {
+  background-color: #131313 !important;
+  color: #e6e6c4 !important;
+}

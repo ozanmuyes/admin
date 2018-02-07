@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <el-row>
-      <el-col :span="12">
+      <el-col :span="24">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <h1>Socket</h1>
@@ -10,7 +10,9 @@
           <socket-commander></socket-commander>
         </el-card>
       </el-col>
+    </el-row>
 
+    <el-row :gutter="24">
       <el-col :span="12">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -21,6 +23,20 @@
 
           <div v-for="o in 4" :key="o" class="text item">
             {{'List item ' + o }}
+          </div>
+        </el-card>
+      </el-col>
+
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <!-- <span>Card name</span> -->
+            <h1>Rooms</h1>
+            <el-button style="float: right; padding: 3px 0" type="text">Refresh</el-button>
+          </div>
+
+          <div v-for="i in 4" :key="i" class="text item">
+            {{ `Room #${i} - ID f00b4rb47_${i}` }}
           </div>
         </el-card>
       </el-col>
@@ -62,7 +78,10 @@
     clear: both
   }
 
-  .box-card {
+  /*.box-card {
     width: 480px;
+  }*/
+  .el-row {
+    margin-bottom: 24px;
   }
 </style>

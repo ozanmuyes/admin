@@ -24,17 +24,33 @@
       label-width="120px"
       :model="commandForm"
       ref="commandForm"
+      @submit.prevent="console.log('Submit on command form prevented.')"
     >
       <el-form-item label="Command">
-        <el-input v-model="commandForm.command"></el-input>
+        <el-input
+          @keydown.enter.prevent="onSubmitClick"
+          v-model="commandForm.command"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="Arguments">
-        <el-input type="textarea" v-model="commandForm.args"></el-input>
+        <el-input
+          class="arguments"
+          @keydown.enter.prevent="onSubmitClick"
+          v-model="commandForm.args"
+          :rows="1"
+          type="textarea"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="Response">
-        <el-input type="textarea" v-model="commandForm.response" readonly></el-input>
+        <el-input
+          class="response"
+          v-model="commandForm.response"
+          type="textarea"
+          autosize
+          readonly
+        ></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -67,8 +83,10 @@
           //
         },
         commandForm: {
-          command: 'kick',
-          args: '[1]',
+          command: 'sck ls',
+          args: '',
+          // command: 'kick',
+          // args: '[1]',
           response: '',
         },
         //
@@ -132,14 +150,25 @@
           //
         });
 
+        this.socket.on('pong', (pong) => {
+          this.commandForm.response = pong;
+        });
+
+        this.socket.on('message', ({ user, message }) => {
+          console.log(`MESSAGE | USER#${user.id} ('${user.name}'): ${message}`);
+
+          // TODO Show message on the application (on the AppNavbar, like a notification)
+        });
+
         // this.socket.on('custom event', () => {});
       },
       onSubmitClick() {
         const command = this.commandForm.command;
         const args = this.commandForm.args;
 
-        this.commandForm.command = '';
-        this.commandForm.args = '';
+        this.commandForm.response = '';
+        // this.commandForm.command = '';
+        // this.commandForm.args = '';
 
         const commandObj = JSON.stringify({
           event: command,
@@ -148,9 +177,16 @@
         });
 
         this.socket.emit('command', commandObj, (response) => {
-          console.log(`Command response: '${response}'`);
+          // console.log(`Command response: '${response}'`);
 
-          //
+          let responseStr = '';
+          if (typeof response === 'string') {
+            responseStr = response;
+          } else {
+            responseStr = JSON.parse(response);
+          }
+
+          this.commandForm.response = responseStr;
         });
       },
     },
@@ -161,5 +197,9 @@
 <style module>
   .full-width {
     width: 100%;
+  }
+
+  .response {
+    /**/
   }
 </style>
