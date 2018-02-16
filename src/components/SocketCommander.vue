@@ -72,7 +72,16 @@
         >
           Send
         </el-button>
+
         <el-button>Reset</el-button>
+
+        <el-button
+          @click="onHostClick"
+          :disabled = "!this.isLoggedIn"
+          type="primary"
+        >
+          Host Room (QUIZ#1)
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -98,8 +107,10 @@
           //
         },
         commandForm: {
-          command: '',
-          args: '',
+          command: 'room start',
+          args: '{"roomId":1}',
+          // command: '',
+          // args: '',
           response: '',
         },
         //
@@ -227,15 +238,16 @@
         // this.commandForm.command = '';
         // this.commandForm.args = '';
 
-        const commandObj = JSON.stringify({
-          event: command,
-          args, // array or object
-          //
-        });
+        // const commandObj = JSON.stringify({
+        //   event: command,
+        //   args: JSON.parse(args), // array or object
+        //   //
+        // });
 
-        this.socket.emit(command, args, (response) => {
-        // this.socket.emit('command', commandObj, (response) => {
-          // console.log(`Command response: '${response}'`);
+        this.socket.emit(command, JSON.parse(args), (response) => {
+        // this.socket.emit(command, args, (response) => {
+        // // this.socket.emit('command', commandObj, (response) => {
+        //   // console.log(`Command response: '${response}'`);
 
           let responseStr = '';
           if (typeof response === 'string') {
@@ -248,6 +260,12 @@
 // console.log(`Response to command '${command}' (${args.length === 0 ? 'without ' : 'with '} arguments):\n'${responseStr}'`);
 // console.log(`\`response\` setting to: '${responseStr}'`);
           this.commandForm.response = responseStr;
+        });
+      },
+      onHostClick() {
+        this.socket.emit('room host', { quizId: 1 }, (response) => {
+          console.log(response);
+          // TODO
         });
       },
       tryToLogin() {
